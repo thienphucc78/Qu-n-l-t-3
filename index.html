@@ -3,600 +3,954 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Thi Đua Tổ 3 - Trực Tuyến</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Truy Tìm Kho Báu Dưới Lòng Đại Dương</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Firebase SDKs (Compat Version) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#2563eb',
-                            600: '#1d4ed8',
-                            700: '#1e40af',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+        * {
+            font-family: 'Nunito', sans-serif;
+            user-select: none;
         }
-        .tab-btn.active {
-            background-color: #2563eb;
-            color: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        
+        .font-fredoka {
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* Animated Deep Ocean Gradient Background */
+        body {
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 25%, #0f4c81 60%, #081c3a 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Underwater Sun Rays Caustics */
+        .sunrays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60vh;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.08) 0px,
+                rgba(255, 255, 255, 0.08) 30px,
+                transparent 30px,
+                transparent 70px
+            );
+            pointer-events: none;
+            animation: raysMove 10s ease-in-out infinite alternate;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        @keyframes raysMove {
+            0% { transform: scaleX(1) translateX(0); opacity: 0.6; }
+            100% { transform: scaleX(1.2) translateX(-20px); opacity: 0.9; }
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Glowing Effects */
+        .glow-cyan {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+        }
+        
+        .glow-gold {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.8);
+        }
+
+        /* Cartoon Sea Creatures Animations */
+        .swim-left-to-right {
+            animation: swimLTR 18s linear infinite;
+        }
+        .swim-right-to-left {
+            animation: swimRTL 22s linear infinite;
+        }
+        .float-bob {
+            animation: floatBob 4s ease-in-out infinite alternate;
+        }
+        .sway-seaweed {
+            transform-origin: bottom center;
+            animation: sway 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes swimLTR {
+            0% { transform: translateX(-150px) translateY(0) scaleX(1); }
+            50% { transform: translateX(50vw) translateY(-20px) scaleX(1); }
+            100% { transform: translateX(calc(100vw + 150px)) translateY(10px) scaleX(1); }
+        }
+
+        @keyframes swimRTL {
+            0% { transform: translateX(calc(100vw + 150px)) translateY(0) scaleX(-1); }
+            50% { transform: translateX(50vw) translateY(30px) scaleX(-1); }
+            100% { transform: translateX(-150px) translateY(-10px) scaleX(-1); }
+        }
+
+        @keyframes floatBob {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-18px) rotate(4deg); }
+        }
+
+        @keyframes sway {
+            0% { transform: rotate(-8deg); }
+            100% { transform: rotate(10deg); }
+        }
+
+        /* Bubbles Animation */
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: rise 8s infinite linear;
+            box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes rise {
+            0% { bottom: -50px; transform: translateX(0) scale(0.6); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { bottom: 108%; transform: translateX(60px) scale(1.2); opacity: 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+
+        /* Interactive Chest Card Styling */
+        .chest-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .chest-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(56, 189, 248, 0.5);
+            border-color: #fbbf24;
+        }
+        .chest-card.opened {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-color: #475569;
+            opacity: 0.85;
+            transform: none !important;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="text-white flex flex-col justify-between min-h-screen">
 
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
-                        3
-                    </div>
-                    <div>
-                        <h1 class="text-lg font-bold text-slate-900 leading-none">Quản Lý Thi Đua Tổ 3</h1>
-                        <span class="text-xs text-brand-600 font-medium">Đồng Bộ Trực Tuyến</span>
-                    </div>
-                </div>
-                <!-- Navigation Tabs -->
-                <nav class="hidden md:flex space-x-1 bg-slate-100 p-1.5 rounded-xl text-sm font-medium">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="tab-btn active px-4 py-2 rounded-lg transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie"></i> Tổng Quan
-                    </button>
-                    <button onclick="switchTab('ranking')" id="nav-ranking" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-trophy"></i> Bảng Xếp Hạng
-                    </button>
-                    <button onclick="switchTab('members')" id="nav-members" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-users"></i> Thành Viên
-                    </button>
-                    <button onclick="switchTab('entry')" id="nav-entry" class="tab-btn px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-plus-circle"></i> Nhập Điểm
-                    </button>
-                </nav>
+    <!-- Ambient Ocean Light Rays -->
+    <div class="sunrays"></div>
+
+    <!-- Floating Bubbles Container -->
+    <div id="bubble-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
+    <!-- CARTOON SEA CREATURES OVERLAY -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Cartoon Fish (Clownfish Nemo) -->
+        <div class="absolute top-[18%] swim-left-to-right opacity-90">
+            <svg class="w-16 h-16 drop-shadow-lg" viewBox="0 0 100 100">
+                <path d="M20,50 Q40,20 70,50 Q40,80 20,50" fill="#f97316"/>
+                <path d="M70,50 L90,30 L85,50 L90,70 Z" fill="#f97316"/>
+                <path d="M35,30 Q40,50 35,70 Q43,70 45,50 Q43,30 35,30" fill="#ffffff"/>
+                <path d="M55,23 Q60,50 55,77 Q62,77 64,50 Q62,23 55,23" fill="#ffffff"/>
+                <circle cx="30" cy="42" r="3" fill="#000000"/>
+            </svg>
+        </div>
+
+        <!-- Cartoon Dolphin -->
+        <div class="absolute top-[40%] swim-right-to-left opacity-80" style="animation-delay: -5s;">
+            <svg class="w-24 h-24 drop-shadow-xl" viewBox="0 0 100 100">
+                <path d="M10,50 Q30,20 70,30 Q90,35 95,45 Q80,50 60,55 Q30,65 10,50 Z" fill="#38bdf8"/>
+                <path d="M50,30 L60,10 L65,28 Z" fill="#0284c7"/>
+                <path d="M10,50 L0,35 L5,50 L0,65 Z" fill="#0284c7"/>
+                <circle cx="80" cy="40" r="2.5" fill="#0f172a"/>
+            </svg>
+        </div>
+
+        <!-- Cartoon Jellyfish -->
+        <div class="absolute top-[25%] right-[10%] float-bob opacity-85">
+            <svg class="w-16 h-20 drop-shadow-md" viewBox="0 0 100 120">
+                <path d="M20,50 Q20,10 50,10 Q80,10 80,50 Q50,60 20,50" fill="#ec4899" opacity="0.8"/>
+                <path d="M30,55 Q25,80 35,110 M45,57 Q50,85 45,115 M60,57 Q55,85 60,110 M70,55 Q75,80 65,105" stroke="#f472b6" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle cx="38" cy="35" r="3" fill="#ffffff"/>
+                <circle cx="62" cy="35" r="3" fill="#ffffff"/>
+            </svg>
+        </div>
+
+        <!-- Cartoon Turtle -->
+        <div class="absolute top-[65%] swim-left-to-right opacity-85" style="animation-delay: -9s;">
+            <svg class="w-20 h-20 drop-shadow-lg" viewBox="0 0 100 100">
+                <ellipse cx="50" cy="50" rx="30" ry="22" fill="#16a34a"/>
+                <ellipse cx="50" cy="50" rx="26" ry="18" fill="#22c55e"/>
+                <circle cx="82" cy="50" r="10" fill="#15803d"/>
+                <circle cx="85" cy="47" r="2" fill="#ffffff"/>
+                <ellipse cx="35" cy="28" rx="12" ry="6" fill="#15803d" transform="rotate(-30 35 28)"/>
+                <ellipse cx="35" cy="72" rx="12" ry="6" fill="#15803d" transform="rotate(30 35 72)"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- TOP NAVBAR -->
+    <header class="relative z-20 px-4 py-3 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-amber-400 flex items-center justify-center text-2xl shadow-lg border-2 border-white/40">
+                ⚓
             </div>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-black tracking-wide font-fredoka bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-cyan-200 to-white">
+                    TRUY TÌM KHO BÁU ĐẠI DƯƠNG
+                </h1>
+                <p class="text-xs text-cyan-200/80 font-semibold">Giờ Sinh Hoạt Lớp Sôi Động • 40 Thành Viên</p>
+            </div>
+        </div>
+
+        <!-- Tab Controls -->
+        <div class="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-2xl border border-cyan-500/30">
+            <button id="btn-tab-wheel" onclick="switchTab('wheel')" class="px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30 border border-cyan-300/40">
+                <i class="fa-solid fa-dharmachakra text-amber-300 animate-spin-slow"></i>
+                <span>Vòng Quay</span>
+            </button>
+            <button id="btn-tab-chests" onclick="switchTab('chests')" class="px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30">
+                <i class="fa-solid fa-box-archive text-amber-400"></i>
+                <span>50 Rương Báu</span>
+                <span id="openedCount" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-cyan-500/30 text-cyan-300 font-black">0/50</span>
+            </button>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- MAIN CONTENT AREA -->
+    <main class="relative z-20 max-w-7xl mx-auto w-full px-4 py-2 flex-1 flex flex-col justify-center">
 
-        <!-- Controls Bar: Week Selection -->
-        <div class="mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-calendar-week text-brand-600 text-xl"></i>
-                <span class="font-semibold text-slate-700">Đang xem dữ liệu:</span>
-                <select id="weekSelect" onchange="changeWeek()" class="bg-slate-100 border border-slate-300 text-slate-800 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-2.5 font-bold">
-                    <!-- Dropdown populated dynamically from Week 1 to 35 -->
-                </select>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="resetCurrentWeekData()" class="px-3 py-2 text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors border border-rose-200">
-                    <i class="fa-solid fa-rotate-right mr-1"></i> Đặt lại điểm tuần này
-                </button>
-            </div>
-        </div>
+        <!-- TAB 1: LUCKY WHEEL SECTION -->
+        <section id="tab-wheel" class="flex flex-col lg:flex-row items-center justify-center gap-8 py-4">
+            
+            <!-- CANVAS WHEEL CONTAINER -->
+            <div class="relative flex items-center justify-center p-4">
+                <!-- Pointer Arrow -->
+                <div class="absolute -top-3 z-30 transform -translate-x-1/2 left-1/2 filter drop-shadow-xl">
+                    <div class="w-0 h-0 border-l-[18px] border-l-transparent border-r-[18px] border-r-transparent border-t-[36px] border-t-amber-400"></div>
+                </div>
 
-        <!-- TAB 1: DASHBOARD -->
-        <section id="tab-dashboard" class="tab-content space-y-6">
-            <!-- Stat Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-                <div class="bg-gradient-to-br from-violet-600 to-purple-700 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
-                    <p class="text-xs uppercase font-semibold text-purple-100">Tổng Điểm Cả Tổ</p>
-                    <h3 id="stat-group-total" class="text-2xl font-black mt-1">0</h3>
-                    <p class="text-xs text-purple-100 mt-2">Tuần đang chọn</p>
-                </div>
-                <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
-                    <p class="text-xs uppercase font-semibold text-blue-100">Dẫn Đầu Tuần</p>
-                    <h3 id="stat-leader" class="text-2xl font-black mt-1">--</h3>
-                    <p id="stat-leader-score" class="text-xs text-blue-100 mt-2">0 điểm</p>
-                </div>
-                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
-                    <p class="text-xs uppercase font-semibold text-emerald-100">Phát Biểu</p>
-                    <h3 id="stat-speech" class="text-2xl font-black mt-1">0</h3>
-                    <p class="text-xs text-emerald-100 mt-2">+5 điểm / lượt</p>
-                </div>
-                <div class="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
-                    <p class="text-xs uppercase font-semibold text-amber-100">Lỗi Khác</p>
-                    <h3 id="stat-minor" class="text-2xl font-black mt-1">0</h3>
-                    <p class="text-xs text-amber-100 mt-2">-1 điểm / lượt</p>
-                </div>
-                <div class="bg-gradient-to-br from-rose-500 to-red-600 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
-                    <p class="text-xs uppercase font-semibold text-red-100">Đánh Lộn</p>
-                    <h3 id="stat-major" class="text-2xl font-black mt-1">0</h3>
-                    <p class="text-xs text-red-100 mt-2">-5 điểm / lượt</p>
-                </div>
-                <div class="bg-gradient-to-br from-purple-600 to-pink-700 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
-                    <p class="text-xs uppercase font-semibold text-pink-100">Vắng</p>
-                    <h3 id="stat-absent" class="text-2xl font-black mt-1">0</h3>
-                    <p class="text-xs text-pink-100 mt-2">-5 điểm / lượt</p>
+                <!-- Outer Glowing Ring -->
+                <div class="relative p-3 rounded-full bg-gradient-to-b from-cyan-400/40 via-blue-600/30 to-amber-500/40 border-4 border-amber-400/80 glow-cyan">
+                    <canvas id="wheelCanvas" width="480" height="480" class="max-w-[88vw] max-h-[88vw] sm:w-[460px] sm:h-[460px] rounded-full cursor-pointer shadow-2xl"></canvas>
                 </div>
             </div>
 
-            <!-- Top 3 Podium & Recent Logs -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-crown text-amber-500"></i> Top 3 Học Sinh Xuất Sắc
-                        </h3>
-                        <div id="podium-container" class="space-y-3"></div>
-                    </div>
-                    <button onclick="switchTab('ranking')" class="mt-4 w-full py-2.5 text-center text-sm font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-xl transition-colors">
-                        Xem Bảng Xếp Hạng &rarr;
-                    </button>
-                </div>
-
-                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-clock-rotate-left text-slate-500"></i> Lịch Sử Nhập Điểm Gần Đây
-                    </h3>
-                    <div class="overflow-y-auto max-h-[280px] pr-2">
-                        <ul id="activity-log" class="space-y-3 text-sm"></ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: RANKING -->
-        <section id="tab-ranking" class="tab-content hidden">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="p-6 border-b border-slate-100">
-                    <h2 class="text-lg font-bold text-slate-900">Bảng Xếp Hạng Thi Đua</h2>
-                    <p class="text-xs text-slate-500">Cập nhật tự động theo thời gian thực</p>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase font-bold border-b border-slate-200">
-                                <th class="p-4 text-center">Hạng</th>
-                                <th class="p-4">Họ Và Tên</th>
-                                <th class="p-4 text-center">Phát Biểu (+5)</th>
-                                <th class="p-4 text-center">Lỗi Khác (-1)</th>
-                                <th class="p-4 text-center">Đánh Lộn (-5)</th>
-                                <th class="p-4 text-center">Vắng (-5)</th>
-                                <th class="p-4 text-center font-extrabold text-brand-600">Tổng Điểm</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ranking-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 3: MEMBERS -->
-        <section id="tab-members" class="tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="members-grid"></div>
-        </section>
-
-        <!-- TAB 4: ENTRY FORM -->
-        <section id="tab-entry" class="tab-content hidden">
-            <div class="max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h2 class="text-xl font-bold text-slate-900 mb-2">Ghi Nhận Điểm Thi Đua</h2>
-                <p class="text-sm text-slate-500 mb-6">Điểm số sẽ được đồng bộ ngay lập tức đến thiết bị của mọi người.</p>
+            <!-- CONTROLS & WINNER DISPLAY -->
+            <div class="w-full lg:w-96 flex flex-col items-center lg:items-start gap-5">
                 
-                <form id="scoreForm" onsubmit="handleScoreSubmit(event)" class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">1. Chọn Thành Viên</label>
-                        <select id="entryMember" required class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none text-slate-800 font-medium"></select>
+                <!-- Winner Announcement Box -->
+                <div class="w-full glass-panel rounded-3xl p-6 text-center border-2 border-amber-400/50 glow-gold relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 text-6xl">🏆</div>
+                    <h3 class="text-xs uppercase tracking-widest font-black text-cyan-300 mb-2">Thuyền Trưởng May Mắn</h3>
+                    
+                    <div id="winnerDisplay" class="min-h-[70px] flex items-center justify-center">
+                        <span class="text-slate-400 text-sm italic">Sẵn sàng quay để chọn ngẫu nhiên 1 bạn...</span>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">2. Chọn Loại Hành Vi</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                            <label class="relative flex flex-col p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-100 transition-all">
-                                <input type="radio" name="actionType" value="speech" checked class="sr-only peer">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="text-sm font-bold text-emerald-800">Phát Biểu</span>
-                                    <span class="text-xs font-black px-2 py-0.5 bg-emerald-200 text-emerald-800 rounded-full">+5</span>
-                                </div>
-                                <div class="absolute inset-0 rounded-xl border-2 border-emerald-600 pointer-events-none hidden peer-checked:block"></div>
-                            </label>
-
-                            <label class="relative flex flex-col p-4 bg-amber-50 border-2 border-amber-200 rounded-xl cursor-pointer hover:bg-amber-100 transition-all">
-                                <input type="radio" name="actionType" value="minor" class="sr-only peer">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="text-sm font-bold text-amber-800">Lỗi Khác</span>
-                                    <span class="text-xs font-black px-2 py-0.5 bg-amber-200 text-amber-800 rounded-full">-1</span>
-                                </div>
-                                <div class="absolute inset-0 rounded-xl border-2 border-amber-600 pointer-events-none hidden peer-checked:block"></div>
-                            </label>
-
-                            <label class="relative flex flex-col p-4 bg-rose-50 border-2 border-rose-200 rounded-xl cursor-pointer hover:bg-rose-100 transition-all">
-                                <input type="radio" name="actionType" value="major" class="sr-only peer">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="text-sm font-bold text-rose-800">Đánh Lộn</span>
-                                    <span class="text-xs font-black px-2 py-0.5 bg-rose-200 text-rose-800 rounded-full">-5</span>
-                                </div>
-                                <div class="absolute inset-0 rounded-xl border-2 border-rose-600 pointer-events-none hidden peer-checked:block"></div>
-                            </label>
-
-                            <label class="relative flex flex-col p-4 bg-purple-50 border-2 border-purple-200 rounded-xl cursor-pointer hover:bg-purple-100 transition-all">
-                                <input type="radio" name="actionType" value="absent" class="sr-only peer">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="text-sm font-bold text-purple-800">Vắng</span>
-                                    <span class="text-xs font-black px-2 py-0.5 bg-purple-200 text-purple-800 rounded-full">-5</span>
-                                </div>
-                                <div class="absolute inset-0 rounded-xl border-2 border-purple-600 pointer-events-none hidden peer-checked:block"></div>
-                            </label>
-                        </div>
+                    <!-- Next Action Button -->
+                    <div id="nextStepBox" class="mt-4 pt-4 border-t border-cyan-500/30 hidden">
+                        <button onclick="goToChestsWithWinner()" class="w-full py-3 px-4 rounded-xl font-black bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition">
+                            <span>Mở Rương Báu Cho <b id="currentTurnName">Bạn</b></span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
+                </div>
 
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">3. Số Lượt</label>
-                        <div class="flex items-center gap-3">
-                            <button type="button" onclick="adjustCount(-1)" class="w-12 h-12 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xl rounded-xl border border-slate-300 flex items-center justify-center">-</button>
-                            <input type="number" id="entryCount" value="1" min="1" max="100" class="w-full p-3 text-center bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none text-slate-900 font-bold text-lg">
-                            <button type="button" onclick="adjustCount(1)" class="w-12 h-12 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xl rounded-xl border border-slate-300 flex items-center justify-center">+</button>
-                        </div>
+                <!-- Spin Action Button -->
+                <button id="spinBtn" onclick="spinWheel()" class="w-full py-5 px-8 rounded-2xl font-black text-2xl text-slate-950 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 hover:brightness-110 shadow-2xl shadow-amber-500/40 border-2 border-yellow-200 transform active:scale-95 transition flex items-center justify-center gap-3 font-fredoka">
+                    <i class="fa-solid fa-compass text-2xl"></i>
+                    <span>QUAY NGAY!</span>
+                </button>
+
+                <!-- Class List Quick Info -->
+                <div class="w-full glass-panel rounded-2xl p-4 flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-users text-cyan-400 text-lg"></i>
+                        <span class="font-bold">Danh Sách Lớp: <b id="studentCount" class="text-amber-300">40</b> Bạn</span>
                     </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Ghi Chú Nhanh (Không bắt buộc)</label>
-                        <input type="text" id="entryNote" placeholder="Ví dụ: Tiết Toán..." class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none text-slate-800 text-sm">
-                    </div>
-
-                    <button type="submit" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/20 transition-all">
-                        Cập Nhật Điểm Trực Tuyến
+                    <button onclick="toggleStudentListModal()" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-200 text-xs font-bold border border-cyan-400/30">
+                        <i class="fa-solid fa-pen-to-square"></i> Xem/Sửa
                     </button>
-                </form>
+                </div>
             </div>
+
+        </section>
+
+        <!-- TAB 2: 50 TREASURE CHESTS GRID SECTION -->
+        <section id="tab-chests" class="hidden flex-col items-center gap-6 py-4">
+            
+            <div class="text-center max-w-2xl">
+                <h2 class="text-2xl sm:text-3xl font-black font-fredoka text-amber-300 drop-shadow">
+                    🏴‍☠️ 50 RƯƠNG BÁU ĐẠI DƯƠNG
+                </h2>
+                <p class="text-xs sm:text-sm text-cyan-100/80 mt-1">
+                    45 Câu hỏi ôn tập rải rác & 5 Rương Đặc Biệt miễn thử thách!
+                </p>
+            </div>
+
+            <!-- 50 CHESTS GRID -->
+            <div id="chestGrid" class="w-full max-w-5xl grid grid-cols-5 sm:grid-cols-10 gap-2.5 sm:gap-3.5 p-4 glass-panel rounded-3xl max-h-[62vh] overflow-y-auto">
+            </div>
+
         </section>
 
     </main>
 
-    <!-- Mobile Bottom Navigation -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 px-2 py-1">
-        <div class="flex justify-around items-center text-xs font-medium text-slate-600">
-            <button onclick="switchTab('dashboard')" class="flex flex-col items-center py-2 px-3 hover:text-brand-600"><i class="fa-solid fa-chart-pie text-base mb-1"></i><span>Tổng Quan</span></button>
-            <button onclick="switchTab('ranking')" class="flex flex-col items-center py-2 px-3 hover:text-brand-600"><i class="fa-solid fa-trophy text-base mb-1"></i><span>Xếp Hạng</span></button>
-            <button onclick="switchTab('members')" class="flex flex-col items-center py-2 px-3 hover:text-brand-600"><i class="fa-solid fa-users text-base mb-1"></i><span>Thành Viên</span></button>
-            <button onclick="switchTab('entry')" class="flex flex-col items-center py-2 px-3 hover:text-brand-600"><i class="fa-solid fa-plus-circle text-base mb-1"></i><span>Nhập Điểm</span></button>
+    <!-- OCEAN FLOOR CARTOON DECORATION -->
+    <footer class="relative z-10 w-full mt-auto pointer-events-none">
+        <div class="relative w-full h-24 sm:h-32 flex items-end justify-between px-4 sm:px-12 overflow-hidden">
+            
+            <!-- Left Seaweed & Coral Reef -->
+            <div class="flex items-end gap-1 sm:gap-3">
+                <div class="sway-seaweed text-emerald-400 text-4xl sm:text-6xl">🌿</div>
+                <div class="sway-seaweed text-rose-400 text-3xl sm:text-5xl" style="animation-delay: -1s;">🪸</div>
+                <div class="text-amber-400 text-3xl sm:text-4xl float-bob">⭐</div>
+                <div class="sway-seaweed text-teal-300 text-5xl sm:text-7xl" style="animation-delay: -2s;">🌿</div>
+            </div>
+
+            <!-- Center Ocean Floor Scene -->
+            <div class="flex items-center gap-4 bg-slate-950/60 backdrop-blur-md px-6 py-2 rounded-t-2xl border-t border-cyan-500/30 text-xs text-cyan-200/80 pointer-events-auto">
+                <span>🐙 Thủy Cung Bí Ẩn</span>
+                <span>•</span>
+                <span>🐚 Sinh Hoạt Lớp Sôi Động</span>
+            </div>
+
+            <!-- Right Coral & Shell Treasure -->
+            <div class="flex items-end gap-1 sm:gap-3">
+                <div class="text-pink-300 text-3xl sm:text-5xl float-bob" style="animation-delay: -1.5s;">🦪</div>
+                <div class="sway-seaweed text-purple-400 text-4xl sm:text-6xl" style="animation-delay: -0.5s;">🪸</div>
+                <div class="sway-seaweed text-emerald-500 text-5xl sm:text-7xl" style="animation-delay: -1.8s;">🌿</div>
+            </div>
+
+        </div>
+        <!-- Sandy Ocean Floor Base -->
+        <div class="w-full h-4 bg-gradient-to-r from-amber-800 via-yellow-700 to-amber-900 opacity-90"></div>
+    </footer>
+
+    <!-- MODAL 1: QUESTION / CHALLENGE DISPLAY -->
+    <div id="questionModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border-2 border-amber-400/80 glow-gold transform scale-90 transition-all duration-300 relative text-center">
+            
+            <div class="w-16 h-16 rounded-full bg-amber-400/20 border-2 border-amber-400 flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+                🎁
+            </div>
+
+            <span id="modalChestNum" class="text-xs font-black uppercase tracking-widest text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/30">
+                RƯƠNG SỐ #--
+            </span>
+
+            <div id="modalTypeBadge" class="mt-3"></div>
+
+            <div class="my-4 min-h-[80px] flex items-center justify-center">
+                <p id="questionText" class="text-base sm:text-lg font-extrabold text-white leading-relaxed">
+                    Nội dung câu hỏi đang được tải...
+                </p>
+            </div>
+
+            <!-- Interactive Quiz Options Container -->
+            <div id="quizOptionsContainer" class="hidden grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-left"></div>
+
+            <!-- Feedback Alert Banner -->
+            <div id="feedbackBanner" class="hidden mb-4 p-3 rounded-xl font-bold text-center text-sm transition-all"></div>
+
+            <button id="closeModalBtn" onclick="closeModal()" class="w-full py-3.5 px-6 rounded-2xl font-black bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg border border-cyan-300/40 transform active:scale-95 transition">
+                HOÀN THÀNH / ĐÓNG
+            </button>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed top-20 right-5 z-50 transition-all duration-300 transform translate-x-full opacity-0">
-        <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
-            <i class="fa-solid fa-check-circle text-emerald-400"></i>
-            <span id="toast-message" class="text-sm font-medium">Thành công!</span>
+    <!-- MODAL 2: STUDENT LIST MANAGER -->
+    <div id="studentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel w-full max-w-md rounded-3xl p-6 border-2 border-cyan-400/50 transform transition-all relative">
+            <h3 class="text-lg font-black text-amber-300 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-users"></i>
+                <span>Danh Sách Học Sinh (<span id="modalListCount">0</span>)</span>
+            </h3>
+            <p class="text-xs text-slate-300 mb-3">Mỗi tên nằm trên 1 dòng khác nhau:</p>
+            
+            <textarea id="studentTextarea" class="w-full h-64 p-3 rounded-xl bg-slate-900/90 border border-cyan-500/40 text-sm text-cyan-100 focus:outline-none focus:border-amber-400 resize-none font-mono"></textarea>
+
+            <div class="flex items-center justify-end gap-3 mt-4">
+                <button onclick="toggleStudentListModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700">Hủy</button>
+                <button onclick="saveStudentList()" class="px-5 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 hover:brightness-110">Cập Nhật</button>
+            </div>
         </div>
     </div>
 
+    <!-- SCRIPT LOGIC -->
     <script>
-        // Cấu hình Firebase của bạn
-        const firebaseConfig = {
-          apiKey: "AIzaSyBMFdtugVK-5Zl-nsQLiTlZnSb4408SGtE",
-          authDomain: "quan-li-to-3.firebaseapp.com",
-          databaseURL: "https://quan-li-to-3-default-rtdb.firebaseio.com",
-          projectId: "quan-li-to-3",
-          storageBucket: "quan-li-to-3.firebasestorage.app",
-          messagingSenderId: "1039258055393",
-          appId: "1:1039258055393:web:32aadb0f35105de0553da0",
-          measurementId: "G-PCFDL9JCV3"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        const MEMBERS = [
-            "Trần Thiên Phúc", "Đoàn Nhã Hân", "Huỳnh Mỹ Kiều",
-            "Huỳnh Ngọc Lam", "Nguyên Lâm Quốc Khánh", "Trần Vũ Bảo",
-            "Trần Như Ý", "Khưu Chí Giành", "Danh Thị Linh"
+        // 1. DATA: List of Students
+        const defaultStudents = [
+            "Lê Khả Ái", "Danh Trâm Anh", "Phạm Quốc Bảo", "Trần Vũ Bảo", "Trần Văn Bin",
+            "Danh Chung Chánh", "Vương Lâm Di", "Nguyễn Kim Diễm", "Võ Ngọc Mỹ Duyên", "Danh Hoàng Đạt",
+            "Khưu Chi Giành", "Danh Tắc Gu", "Khưu Chi Hào", "Đinh Thị Thúy Hằng", "Đoàn Nhã Hân",
+            "Danh Hiếu", "Trịnh Gia Huy", "Danh Thị Thu Hường", "Danh Duy Khang", "Nguyễn Lâm Quốc Khánh",
+            "Nguyễn Anh Kiệt", "Huỳnh Mỹ Kiều", "Huỳnh Ngọc Lam", "Danh Thị Linh", "Danh Thị Ái My",
+            "Giang Hữu Nhân", "Tô Huỳnh Như", "Danh Đình Phong", "Trần Thiên Phúc", "Thị Kim Quyên",
+            "Thị Ngọc Sương", "Danh Quang Thái", "Phan Thị Anh Thư", "Danh Thị Huyền Trang", "Lê Ngọc Bảo Trân",
+            "Danh Đức Trọng", "Lê Vĩ Tường", "Thị Bảo Xuyên", "Thị Như Ý", "Trần Như Ý"
         ];
 
-        const TOTAL_WEEKS = 35;
-        let currentWeek = 1;
-        let currentWeekData = { scores: {}, logs: [] };
+        let students = [...defaultStudents];
 
-        window.onload = function() {
-            const weekSelect = document.getElementById('weekSelect');
-            weekSelect.innerHTML = '';
-            for (let w = 1; w <= TOTAL_WEEKS; w++) {
-                let opt = document.createElement('option');
-                opt.value = w;
-                opt.textContent = `Tuần ${w}`;
-                weekSelect.appendChild(opt);
+        // 2. DATA: 45 Full Questions from Subjects
+        const raw45Questions = [
+            // --- TOÁN 8 (5 câu) ---
+            { type: 'quiz', question: '📐 [Toán 8] Khai triển hằng đẳng thức (x + 1)² ta được kết quả là:', options: ['A. x² + 1', 'B. x² + 2x + 1', 'C. x² + x + 1', 'D. x² - 2x + 1'], correctIndex: 1 },
+            { type: 'quiz', question: '📐 [Toán 8] Trong các biểu thức sau, đâu là đơn thức?', options: ['A. x + 2', 'B. x / y', 'C. 5x²y', 'D. 3x - 1'], correctIndex: 2 },
+            { type: 'quiz', question: '📐 [Toán 8] Thu gọn biểu thức 2x + 3x, ta được kết quả là:', options: ['A. 5x', 'B. 6x', 'C. 5x²', 'D. 6x²'], correctIndex: 0 },
+            { type: 'quiz', question: '📐 [Toán 8] Tổng số đo bốn góc trong một tứ giác bất kì bằng bao nhiêu độ?', options: ['A. 90°', 'B. 180°', 'C. 270°', 'D. 360°'], correctIndex: 3 },
+            { type: 'quiz', question: '📐 [Toán 8] Hình thang cân là hình thang có hai góc kề một đáy thế nào với nhau?', options: ['A. Bằng nhau', 'B. Bù nhau (tổng bằng 180°)', 'C. Phụ nhau (tổng bằng 90°)', 'D. Khác nhau'], correctIndex: 0 },
+
+            // --- TIẾNG ANH 8 (5 câu) ---
+            { type: 'quiz', question: '🇬🇧 [Tiếng Anh] My house is big, but your house is ________ (lớn hơn) than mine.', options: ['A. big', 'B. bigger', 'C. biggest', 'D. more big'], correctIndex: 1 },
+            { type: 'quiz', question: '🇬🇧 [Tiếng Anh] Từ trái nghĩa với từ "hot" (nóng) là gì?', options: ['A. Cold', 'B. Warm', 'C. Cool', 'D. Big'], correctIndex: 0 },
+            { type: 'quiz', question: '🇬🇧 [Tiếng Anh] He usually ________ (play) football on Sunday.', options: ['A. play', 'B. plays', 'C. playing', 'D. played'], correctIndex: 1 },
+            { type: 'quiz', question: '🇬🇧 [Tiếng Anh] I love ________ (listen) to music.', options: ['A. listen', 'B. listens', 'C. listening', 'D. to listen'], correctIndex: 2 },
+            { type: 'quiz', question: '🇬🇧 [Tiếng Anh] Tìm từ có phần gạch chân/loại từ khác nhất: cat, map, hat, boy', options: ['A. cat', 'B. map', 'C. hat', 'D. boy'], correctIndex: 3 },
+
+            // --- CÔNG NGHỆ 8 (5 câu) ---
+            { type: 'quiz', question: '🛠️ [Công Nghệ 8] Hướng chiếu từ trước tới vật thể sẽ thu được hình chiếu nào?', options: ['A. Hình chiếu đứng', 'B. Hình chiếu bằng', 'C. Hình chiếu cạnh', 'D. Hình chiếu ngang'], correctIndex: 0 },
+            { type: 'quiz', question: '🛠️ [Công Nghệ 8] Trên bản vẽ, hình chiếu bằng nằm ở đâu so với hình chiếu đứng?', options: ['A. Nằm ở phía trên', 'B. Nằm ở phía dưới', 'C. Nằm ở bên phải', 'D. Nằm ở bên trái'], correctIndex: 1 },
+            { type: 'quiz', question: '🛠️ [Công Nghệ 8] Khi quay hình chữ nhật một vòng quanh một cạnh cố định, ta được khối gì?', options: ['A. Hình nón', 'B. Hình trụ', 'C. Hình cầu', 'D. Hình chóp'], correctIndex: 1 },
+            { type: 'quiz', question: '🛠️ [Công Nghệ 8] Trên bản vẽ kỹ thuật, đường bao thấy và cạnh thấy của vật thể được vẽ bằng nét nào?', options: ['A. Nét đứt mảnh', 'B. Nét liền mảnh', 'C. Nét liền đậm', 'D. Nét gạch chấm'], correctIndex: 2 },
+            { type: 'quiz', question: '🛠️ [Công Nghệ 8] Tỉ lệ 1:1 trên bản vẽ kỹ thuật có ý nghĩa là gì?', options: ['A. Tỉ lệ thu nhỏ', 'B. Tỉ lệ phóng to', 'C. Tỉ lệ nguyên hình (kích thước thật)', 'D. Tỉ lệ vẽ tạm'], correctIndex: 2 },
+
+            // --- NGỮ VĂN 8 (5 câu) ---
+            { type: 'quiz', question: '📝 [Ngữ Văn 8] Bài thơ thất ngôn bát cú Đường luật có tổng cộng bao nhiêu câu thơ và mỗi câu có bao nhiêu chữ?', options: ['A. 4 câu, mỗi câu 7 chữ', 'B. 8 câu, mỗi câu 7 chữ', 'C. 8 câu, mỗi câu 6 chữ', 'D. 6 câu, mỗi câu 8 chữ'], correctIndex: 1 },
+            { type: 'quiz', question: '📝 [Ngữ Văn 8] Văn bản "Lá cờ thêu sáu chữ vàng" của Nguyễn Huy Tưởng kể về người anh hùng trẻ tuổi nào?', options: ['A. Quang Trung (Nguyễn Huệ)', 'B. Trần Quốc Toản', 'C. Trần Quốc Tuấn', 'D. Lê Lợi'], correctIndex: 1 },
+            { type: 'quiz', question: '📝 [Ngữ Văn 8] Từ nào sau đây là từ tượng thanh (từ mô phỏng âm thanh)?', options: ['A. Lấp lánh', 'B. Róc rách', 'C. Mênh mông', 'D. Xinh xắn'], correctIndex: 1 },
+            { type: 'quiz', question: '📝 [Ngữ Văn 8] Đoạn văn có câu chủ đề nằm ở đầu đoạn, các câu sau triển khai làm rõ ý cho câu đầu tiên là kiểu đoạn văn nào?', options: ['A. Đoạn văn quy nạp', 'B. Đoạn văn song song', 'C. Đoạn văn diễn dịch', 'D. Đoạn văn phối hợp'], correctIndex: 2 },
+            { type: 'quiz', question: '📝 [Ngữ Văn 8] Từ nào sau đây là từ ngữ địa phương thường dùng ở miền Nam?', options: ['A. Ba (bố)', 'B. Chè (trà)', 'C. Ngô (bắp)', 'D. Chén (bát ăn cơm)'], correctIndex: 3 },
+
+            // --- KHOA HỌC TỰ NHIÊN - HÓA HỌC (5 câu) ---
+            { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Quá trình nào sau đây là hiện tượng hóa học (có sự tạo thành chất mới)?', options: ['A. Nước đá tan thành nước lỏng', 'B. Đốt cháy thanh gỗ thành than', 'C. Hòa tan đường vào nước', 'D. Xé nhỏ một tờ giấy'], correctIndex: 1 },
+            { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Phân tử khối của khí Cacbonic (CO₂), biết nguyên tử khối C = 12, O = 16 là:', options: ['A. 28', 'B. 44', 'C. 32', 'D. 56'], correctIndex: 1 },
+            { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Chất nào sau đây là đơn chất (được tạo nên từ 1 nguyên tố hóa học)?', options: ['A. Nước (H₂O)', 'B. Khí Ôxi (O₂)', 'C. Muối ăn (NaCl)', 'D. Khí Cacbonic (CO₂)'], correctIndex: 1 },
+            { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Cho phản ứng A + B → C + D. Công thức đúng theo Định luật bảo toàn khối lượng là:', options: ['A. mA + mB = mC + mD', 'B. mA + mC = mB + mD', 'C. mA - mB = mC + mD', 'D. mA + mB + mC = mD'], correctIndex: 0 },
+            { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Dấu hiệu nào sau đây cho thấy có phản ứng hóa học xảy ra?', options: ['A. Có chất khí thoát ra (sủi bọt)', 'B. Xuất hiện chất kết tủa', 'C. Có sự đổi màu hoặc tỏa nhiệt', 'D. Cả A, B và C đều đúng'], correctIndex: 3 },
+
+            // --- ĐỊA LÝ 8 (5 câu) ---
+            { type: 'quiz', question: '🗺️ [Địa Lý 8] Nước Việt Nam chúng ta nằm ở rìa phía Đông của bán đảo nào?', options: ['A. Bán đảo Mã Lai', 'B. Bán đảo Đông Dương', 'C. Bán đảo Triều Tiên', 'D. Bán đảo Ả Rập'], correctIndex: 1 },
+            { type: 'quiz', question: '🗺️ [Địa Lý 8] Diện tích phần đất liền của Việt Nam rộng khoảng bao nhiêu km²?', options: ['A. 100.000 km²', 'B. 200.000 km²', 'C. 331.344 km²', 'D. 500.000 km²'], correctIndex: 2 },
+            { type: 'quiz', question: '🗺️ [Địa Lý 8] Trên phần đất liền của nước ta, địa hình đồi núi chiếm khoảng mấy phần diện tích?', options: ['A. 1/4 diện tích', 'B. 1/2 diện tích', 'C. 3/4 diện tích', 'D. Toàn bộ diện tích'], correctIndex: 2 },
+            { type: 'quiz', question: '🗺️ [Địa Lý 8] Địa hình phần đất liền Việt Nam có hướng thấp dần theo hướng nào?', options: ['A. Từ Đông Bắc xuống Tây Nam', 'B. Từ Tây Bắc xuống Đông Nam', 'C. Từ Nam lên Bắc', 'D. Từ Đông sang Tây'], correctIndex: 1 },
+            { type: 'quiz', question: '🗺️ [Địa Lý 8] Nhìn chung, tài nguyên khoáng sản của Việt Nam có đặc điểm nổi bật là:', options: ['A. Rất nghèo nàn, ít chủng loại', 'B. Phong phú và đa dạng', 'C. Chỉ có duy nhất than đá', 'D. Không có trữ lượng dầu mỏ'], correctIndex: 1 },
+
+            // --- LỊCH SỬ 8 (5 câu) ---
+            { type: 'quiz', question: '📜 [Lịch Sử 8] Cuộc Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mỹ đã dẫn đến sự ra đời của quốc gia nào?', options: ['A. Nước Pháp', 'B. Nước Anh', 'C. Hợp chúng quốc Hoa Kỳ (Nước Mỹ)', 'D. Nước Đức'], correctIndex: 2 },
+            { type: 'quiz', question: '📜 [Lịch Sử 8] Cuộc Cách mạng công nghiệp bắt đầu từ thế kỷ XVIII nổi tiếng với phát minh vĩ đại nào?', options: ['A. Máy hơi nước (James Watt)', 'B. Điện thoại', 'C. Máy tính bỏ túi', 'D. Xe ô tô điện'], correctIndex: 0 },
+            { type: 'quiz', question: '📜 [Lịch Sử 8] Từ thế kỷ XVI đến giữa thế kỷ XIX, các nước Đông Nam Á đối mặt nguy cơ bị xâm lược bởi ai?', options: ['A. Thực dân phương Tây', 'B. Các nước châu Phi', 'C. Châu Mỹ Latinh', 'D. Các đế quốc ở Bắc Cực'], correctIndex: 0 },
+            { type: 'quiz', question: '📜 [Lịch Sử 8] Cuộc xung đột Nam - Bắc triều trong lịch sử Việt Nam thế kỷ XVI là chiến tranh giữa hai thế lực nào?', options: ['A. Nhà Lê và nhà Mạc', 'B. Trịnh và Nguyễn', 'C. Tây Sơn và Nguyễn Ánh', 'D. Nhà Đinh và nhà Lê'], correctIndex: 0 },
+            { type: 'quiz', question: '📜 [Lịch Sử 8] Trong thế kỷ XVII, cuộc xung đột nào chia cắt đất nước thành Đàng Trong và Đàng Ngoài?', options: ['A. Xung đột Trịnh - Nguyễn', 'B. Xung đột Nhà Đinh - Nhà Lý', 'C. Xung đột Nhà Ngô - Nhà Trần', 'D. Xung đột Vua Hùng - Thục Phán'], correctIndex: 0 },
+
+            // --- AN TOÀN GIAO THÔNG (5 câu) ---
+            { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Học sinh lớp 8 (13-14 tuổi) được phép điều khiển loại phương tiện nào?', options: ['A. Xe đạp, xe đạp điện', 'B. Xe máy điện, xe gắn máy dưới 50 cm³', 'C. Xe tay ga 125 cm³', 'D. Xe mô tô phân khối lớn'], correctIndex: 0 },
+            { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Khi ngồi trên xe đạp điện/xe máy điện, đội mũ bảo hiểm như thế nào là đúng?', options: ['A. Đội cho có, không cài quai', 'B. Đội mũ đạt chuẩn và cài quai đúng quy cách', 'C. Đội mũ lưỡi trai bên trong', 'D. Chỉ đội khi thấy cảnh sát giao thông'], correctIndex: 1 },
+            { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Hành vi nào của học sinh khi đi xe đạp/xe đạp điện là vi phạm luật nguy hiểm?', options: ['A. Đi đúng phần đường', 'B. Dàn hàng ngang từ 3 xe trở lên, đùa giỡn', 'C. Bật xi-nhan khi chuyển hướng', 'D. Dừng sát hè phố nghe điện thoại'], correctIndex: 1 },
+            { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Khi đèn giao thông chuyển sang màu vàng, người điều khiển phải làm gì?', options: ['A. Tăng tốc phóng nhanh qua ngã tư', 'B. Phải dừng lại trước vạch dừng', 'C. Bóp còi liên tục', 'D. Tắt máy đứng giữa ngã tư'], correctIndex: 1 },
+            { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Học sinh vừa đi xe đạp/xe đạp điện vừa đeo tai nghe nghe nhạc sẽ bị xử lý thế nào?', options: ['A. Là vi phạm luật và sẽ bị xử phạt', 'B. Được khuyến khích', 'C. Không làm sao cả', 'D. Chỉ bị nhắc nhở nhẹ'], correctIndex: 0 },
+
+            // --- GIÁO DỤC CÔNG DÂN 8 (5 câu) ---
+            { type: 'quiz', question: '🕊️ [GDCD 8] Những giá trị tốt đẹp về tư tưởng, đạo lý được truyền từ thế hệ này sang thế hệ khác gọi là gì?', options: ['A. Lối sống hiện đại', 'B. Truyền thống dân tộc', 'C. Sở thích cá nhân', 'D. Văn hóa ngoại lai'], correctIndex: 1 },
+            { type: 'quiz', question: '🕊️ [GDCD 8] Hành vi nào sau đây thể hiện sự thiếu tôn trọng truyền thống tốt đẹp của dân tộc?', options: ['A. Tự hào di tích lịch sử', 'B. Chăm chỉ học tập', 'C. Chê bai trang phục truyền thống', 'D. Giữ gìn nghề truyền thống'], correctIndex: 2 },
+            { type: 'quiz', question: '🕊️ [GDCD 8] Tôn trọng và học hỏi các dân tộc khác trên thế giới có ý nghĩa như thế nào?', options: ['A. Giúp phát triển toàn diện và hòa nhập', 'B. Làm đánh mất bản sắc dân tộc', 'C. Không mang lại giá trị gì', 'D. Chỉ gây lãng phí thời gian'], correctIndex: 0 },
+            { type: 'quiz', question: '🕊️ [GDCD 8] Hành vi nào thể hiện lối sống bảo vệ lẽ phải, trung thực?', options: ['A. Bao che cho bạn làm sai', 'B. Dũng cảm nói lên sự thật', 'C. Gian lận trong thi cử', 'D. Đổ lỗi cho người khác'], correctIndex: 1 },
+            { type: 'quiz', question: '🕊️ [GDCD 8] Học sinh có trách nhiệm như thế nào đối với việc giữ gìn và bảo vệ tài sản công cộng?', options: ['A. Không xả rác, giữ vệ sinh trường lớp', 'B. Vẽ bẩn lên bàn ghế', 'C. Làm hỏng thiết bị lớp học', 'D. Thấy hỏng hóc không báo'], correctIndex: 0 }
+        ];
+
+        // 5 Rương May Mắn "Qua Ải"
+        const luckyChests = [
+            { type: 'lucky', text: '🎉 BẠN RẤT MAY MẮN! Mở trúng Rương Kho Báu Đặc Biệt - Được QUÁ ẢI trực tiếp và nhận 1 tràng pháo tay!' },
+            { type: 'lucky', text: '🌟 [NGÔI SAO MAY MẮN] Bạn nhận được Thẻ Qua Ải Miễn Phí! Không cần trả lời câu hỏi, nhận quà ngay!' },
+            { type: 'lucky', text: '🎁 [RƯƠNG VÀNG ĐẠI DƯƠNG] Bạn trúng Rương May Mắn! Tặng bạn 1 điểm cộng tinh thần và cho bạn chọn người quay tiếp theo!' },
+            { type: 'lucky', text: '👑 [THUYỀN TRƯỞNG TRÚNG LỚN] Quá ải thành công! Nhận một phần quà ngọt ngào từ Lớp Trưởng / Giáo Viên!' },
+            { type: 'lucky', text: '💎 [KHO BÁU BÍ ẨN] May mắn tuyệt đối! Bạn được miễn thử thách và nhận ngay lời chúc tốt đẹp nhất từ cả lớp!' }
+        ];
+
+        // Trộn rải rác 45 câu hỏi + 5 Rương may mắn để đủ 50 rương
+        let treasureQuestions = [];
+        
+        function prepare50Chests() {
+            let combined = [...raw45Questions, ...luckyChests];
+            // Fisher-Yates Shuffle
+            for (let i = combined.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [combined[i], combined[j]] = [combined[j], combined[i]];
             }
-
-            const memberSelect = document.getElementById('entryMember');
-            memberSelect.innerHTML = '';
-            MEMBERS.forEach(m => {
-                let opt = document.createElement('option');
-                opt.value = m;
-                opt.textContent = m;
-                memberSelect.appendChild(opt);
-            });
-
-            listenToFirebaseData();
-        };
-
-        function changeWeek() {
-            currentWeek = parseInt(document.getElementById('weekSelect').value);
-            listenToFirebaseData();
+            treasureQuestions = combined;
         }
 
-        // Lắng nghe dữ liệu thời gian thực từ Firebase
-        function listenToFirebaseData() {
-            db.ref(`weeks/week_${currentWeek}`).on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    currentWeekData = data;
-                    if (!currentWeekData.scores) currentWeekData.scores = {};
-                    if (!currentWeekData.logs) currentWeekData.logs = [];
+        // State variables
+        let openedChests = new Set();
+        let currentSelectedWinner = "";
+        let isSpinning = false;
+        let currentAngle = 0;
+        let currentActiveQuestion = null;
+
+        // Audio Context Setup
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'tick') {
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                } else if (type === 'win' || type === 'correct') {
+                    const now = audioCtx.currentTime;
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.setValueAtTime(400, now + 0.1);
+                    osc.frequency.setValueAtTime(523, now + 0.2);
+                    osc.frequency.setValueAtTime(659, now + 0.3);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
+                    osc.start(now);
+                    osc.stop(now + 0.6);
+                } else if (type === 'wrong') {
+                    const now = audioCtx.currentTime;
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'open') {
+                    const now = audioCtx.currentTime;
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(200, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                }
+            } catch (e) {
+                console.log("Audio play error", e);
+            }
+        }
+
+        // Palette Colors for Ocean Theme Slices
+        const oceanColors = [
+            '#0284c7', '#0d9488', '#0369a1', '#16a34a', '#0891b2', 
+            '#2563eb', '#059669', '#0284c7', '#7c3aed', '#0d9488'
+        ];
+
+        // Canvas & Wheel setup variables
+        let canvas = null;
+        let ctx = null;
+
+        function initCanvas() {
+            if (!canvas) {
+                canvas = document.getElementById('wheelCanvas');
+                if (canvas) {
+                    ctx = canvas.getContext('2d');
+                }
+            }
+        }
+
+        function drawWheel() {
+            initCanvas();
+            if (!canvas || !ctx) return;
+
+            const numSlices = students.length;
+            if (numSlices === 0) return;
+
+            const radius = canvas.width / 2;
+            const sliceAngle = (2 * Math.PI) / numSlices;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();
+            ctx.translate(radius, radius);
+            ctx.rotate(currentAngle);
+
+            for (let i = 0; i < numSlices; i++) {
+                const angle = i * sliceAngle;
+                
+                // Slice Fill
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.arc(0, 0, radius - 10, angle, angle + sliceAngle);
+                ctx.closePath();
+                ctx.fillStyle = oceanColors[i % oceanColors.length];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.stroke();
+
+                // Slice Text
+                ctx.save();
+                ctx.rotate(angle + sliceAngle / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#ffffff";
+                
+                const fontSize = Math.max(9, Math.min(13, 280 / numSlices));
+                ctx.font = `bold ${fontSize}px 'Fredoka', sans-serif`;
+                ctx.shadowColor = "rgba(0,0,0,0.8)";
+                ctx.shadowBlur = 4;
+                ctx.fillText(students[i], radius - 25, 4);
+                ctx.restore();
+            }
+
+            // Outer Golden Rim Accent
+            ctx.beginPath();
+            ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
+            ctx.lineWidth = 6;
+            ctx.strokeStyle = '#f59e0b';
+            ctx.stroke();
+
+            // Center Ocean Circle
+            ctx.beginPath();
+            ctx.arc(0, 0, 48, 0, 2 * Math.PI);
+            ctx.fillStyle = '#0f172a';
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = '#38bdf8';
+            ctx.stroke();
+
+            // Center Icon / Text
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = "22px 'Font Awesome 6 Free'";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("⚓", 0, 0);
+
+            ctx.restore();
+        }
+
+        // Spin Logic
+        function spinWheel() {
+            if (isSpinning || students.length === 0) return;
+
+            initAudio();
+            isSpinning = true;
+            document.getElementById('spinBtn').disabled = true;
+            document.getElementById('spinBtn').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('nextStepBox').classList.add('hidden');
+
+            const winnerIndex = Math.floor(Math.random() * students.length);
+            const sliceAngle = (2 * Math.PI) / students.length;
+            
+            const extraRounds = 5 + Math.floor(Math.random() * 3);
+            const targetAngleOffset = (students.length - winnerIndex - 0.5) * sliceAngle;
+            const totalRotation = extraRounds * 2 * Math.PI + targetAngleOffset - (currentAngle % (2 * Math.PI));
+
+            const startAngle = currentAngle;
+            const startTime = performance.now();
+            const duration = 5000;
+
+            let lastTickSlice = -1;
+
+            function animateSpin(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                currentAngle = startAngle + totalRotation * easeOut;
+
+                const currentSliceIndex = Math.floor(((2 * Math.PI - (currentAngle % (2 * Math.PI))) % (2 * Math.PI)) / sliceAngle);
+                if (currentSliceIndex !== lastTickSlice) {
+                    playSound('tick');
+                    lastTickSlice = currentSliceIndex;
+                }
+
+                drawWheel();
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateSpin);
                 } else {
-                    currentWeekData = { scores: {}, logs: [] };
-                    MEMBERS.forEach(m => {
-                        currentWeekData.scores[m] = { speech: 0, minor: 0, major: 0, absent: 0 };
+                    isSpinning = false;
+                    document.getElementById('spinBtn').disabled = false;
+                    document.getElementById('spinBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+
+                    currentSelectedWinner = students[winnerIndex];
+                    displayWinner(currentSelectedWinner);
+                    playSound('win');
+                    
+                    confetti({
+                        particleCount: 80,
+                        spread: 70,
+                        origin: { y: 0.6 }
                     });
                 }
-                renderAllUI();
-            });
+            }
+
+            requestAnimationFrame(animateSpin);
         }
 
-        function getMemberTotalScore(memberName) {
-            const mData = currentWeekData.scores?.[memberName];
-            if (!mData) return 0;
-            return (mData.speech * 5) - (mData.minor * 1) - (mData.major * 5) - (mData.absent * 5);
+        function displayWinner(name) {
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            winnerDisplay.innerHTML = `
+                <div class="animate-bounce">
+                    <span class="text-xs text-amber-300 font-bold block">XIN CHÚC MỪNG!</span>
+                    <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-yellow-400">${name}</span>
+                </div>
+            `;
+            document.getElementById('nextStepBox').classList.remove('hidden');
+            document.getElementById('currentTurnName').innerText = name;
         }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active', 'bg-brand-600', 'text-white'));
+        function goToChestsWithWinner() {
+            switchTab('chests');
+        }
+
+        // Generate Chest Grid (50 Chests)
+        function renderChestGrid() {
+            const gridContainer = document.getElementById('chestGrid');
+            gridContainer.innerHTML = '';
+
+            for (let i = 1; i <= 50; i++) {
+                const isOpened = openedChests.has(i);
+                const chestEl = document.createElement('div');
+                chestEl.className = `chest-card aspect-square rounded-2xl glass-panel border flex flex-col items-center justify-center p-2 cursor-pointer ${
+                    isOpened ? 'opened border-slate-700 bg-slate-900/40' : 'border-cyan-400/40 hover:border-amber-400 bg-slate-800/80'
+                }`;
+
+                chestEl.onclick = () => openChest(i);
+
+                chestEl.innerHTML = `
+                    <div class="text-xl sm:text-2xl mb-1">${isOpened ? '🧰' : '🗝️'}</div>
+                    <span class="font-black text-sm sm:text-base ${isOpened ? 'text-slate-500' : 'text-amber-300'}">#${i}</span>
+                `;
+
+                gridContainer.appendChild(chestEl);
+            }
+
+            document.getElementById('openedCount').innerText = `${openedChests.size}/50`;
+        }
+
+        function openChest(index) {
+            if (openedChests.has(index)) return;
+
+            playSound('open');
+            openedChests.add(index);
+            renderChestGrid();
+
+            const q = treasureQuestions[index - 1];
+            currentActiveQuestion = q;
+
+            // Reset Modal Elements
+            document.getElementById('modalChestNum').innerText = `RƯƠNG SỐ #${index}`;
+            const optionsContainer = document.getElementById('quizOptionsContainer');
+            const feedbackBanner = document.getElementById('feedbackBanner');
             
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            const navBtn = document.getElementById(`nav-${tabId}`);
-            if (navBtn) navBtn.classList.add('active');
-        }
+            optionsContainer.innerHTML = '';
+            optionsContainer.classList.add('hidden');
+            optionsContainer.classList.remove('grid');
+            feedbackBanner.className = 'hidden mb-4 p-3 rounded-xl font-bold text-center text-sm transition-all';
+            feedbackBanner.innerHTML = '';
 
-        function resetCurrentWeekData() {
-            if (confirm(`Bạn có chắc muốn đặt lại toàn bộ điểm Tuần ${currentWeek}?`)) {
-                db.ref(`weeks/week_${currentWeek}`).set({
-                    scores: {},
-                    logs: []
-                }, (error) => {
-                    if (!error) showToast("Đã đặt lại điểm tuần thành công!");
+            const badge = document.getElementById('modalTypeBadge');
+            if (q.type === 'lucky') {
+                badge.className = "inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-2 bg-emerald-500/20 text-emerald-300 border border-emerald-400/40";
+                badge.innerHTML = '<i class="fa-solid fa-gift"></i> QUA ẢI MAY MẮN';
+                document.getElementById('questionText').innerHTML = q.text.replace(/\n/g, '<br>');
+            } else if (q.type === 'quiz') {
+                badge.className = "inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-2 bg-amber-500/20 text-amber-300 border border-amber-400/40";
+                badge.innerHTML = '<i class="fa-solid fa-circle-question"></i> CÂU HỎI KHO BÁU';
+                document.getElementById('questionText').innerHTML = q.question.replace(/\n/g, '<br>');
+
+                // Render Interactive Quiz Options
+                optionsContainer.classList.remove('hidden');
+                optionsContainer.classList.add('grid');
+
+                q.options.forEach((optText, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "quiz-opt-btn p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 text-white font-bold text-left transition transform active:scale-95 text-sm flex items-center justify-between";
+                    btn.innerHTML = `<span>${optText}</span><i class="opt-icon fa-regular fa-circle text-cyan-400"></i>`;
+                    btn.onclick = () => selectQuizAnswer(optIdx, btn);
+                    optionsContainer.appendChild(btn);
                 });
             }
+
+            // Show Modal
+            const modal = document.getElementById('questionModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-90');
+            modal.querySelector('div').classList.add('scale-100');
+
+            confetti({
+                particleCount: 40,
+                spread: 50,
+                origin: { y: 0.5 }
+            });
         }
 
-        function renderAllUI() {
-            renderDashboard();
-            renderRankingTable();
-            renderMembersGrid();
-        }
+        // Handle interactive option selection in quiz
+        function selectQuizAnswer(selectedIndex, btnElement) {
+            if (!currentActiveQuestion || currentActiveQuestion.type !== 'quiz') return;
 
-        function renderDashboard() {
-            const rankedList = MEMBERS.map(m => ({
-                name: m,
-                total: getMemberTotalScore(m),
-                details: currentWeekData.scores?.[m] || { speech: 0, minor: 0, major: 0, absent: 0 }
-            })).sort((a, b) => b.total - a.total);
+            const feedbackBanner = document.getElementById('feedbackBanner');
+            const isCorrect = (selectedIndex === currentActiveQuestion.correctIndex);
 
-            let groupTotal = 0;
-            rankedList.forEach(i => groupTotal += i.total);
-            document.getElementById('stat-group-total').innerText = groupTotal;
+            if (isCorrect) {
+                playSound('correct');
+                btnElement.className = "quiz-opt-btn p-3 rounded-xl bg-emerald-600 border-2 border-emerald-300 text-white font-bold text-left text-sm flex items-center justify-between shadow-lg glow-cyan";
+                btnElement.querySelector('.opt-icon').className = "opt-icon fa-solid fa-circle-check text-emerald-200 text-lg";
 
-            const leader = rankedList[0];
-            document.getElementById('stat-leader').innerText = leader ? leader.name : '--';
-            document.getElementById('stat-leader-score').innerText = `${leader ? leader.total : 0} điểm`;
+                // Disable all option buttons after finding correct answer
+                const allButtons = document.querySelectorAll('.quiz-opt-btn');
+                allButtons.forEach(b => {
+                    b.disabled = true;
+                    if (b !== btnElement && !b.classList.contains('bg-rose-900/80')) {
+                        b.classList.add('opacity-50');
+                    }
+                });
 
-            let tSpeech = 0, tMinor = 0, tMajor = 0, tAbsent = 0;
-            MEMBERS.forEach(m => {
-                const s = currentWeekData.scores?.[m] || { speech: 0, minor: 0, major: 0, absent: 0 };
-                tSpeech += s.speech || 0;
-                tMinor += s.minor || 0;
-                tMajor += s.major || 0;
-                tAbsent += s.absent || 0;
-            });
+                feedbackBanner.className = "mb-4 p-3 rounded-xl font-bold text-center text-sm bg-emerald-500/20 border border-emerald-400 text-emerald-300 animate-bounce";
+                feedbackBanner.innerHTML = "🎉 ĐÁP ÁN CHÍNH XÁC! XIN CHÚC MỪNG!";
 
-            document.getElementById('stat-speech').innerText = tSpeech;
-            document.getElementById('stat-minor').innerText = tMinor;
-            document.getElementById('stat-major').innerText = tMajor;
-            document.getElementById('stat-absent').innerText = tAbsent;
-
-            // Top 3 Podium
-            const podiumEl = document.getElementById('podium-container');
-            podiumEl.innerHTML = '';
-            const badges = [
-                { icon: '🥇', bg: 'bg-amber-100 border-amber-300 text-amber-900' },
-                { icon: '🥈', bg: 'bg-slate-100 border-slate-300 text-slate-800' },
-                { icon: '🥉', bg: 'bg-orange-100 border-orange-300 text-orange-900' }
-            ];
-
-            rankedList.slice(0, 3).forEach((item, index) => {
-                const b = badges[index];
-                podiumEl.innerHTML += `
-                    <div class="flex items-center justify-between p-3 rounded-xl border ${b.bg}">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">${b.icon}</span>
-                            <div>
-                                <p class="font-bold text-sm">${item.name}</p>
-                                <p class="text-xs opacity-75">${item.details.speech} phát biểu</p>
-                            </div>
-                        </div>
-                        <span class="font-extrabold text-base">${item.total} đ</span>
-                    </div>
-                `;
-            });
-
-            // Activity Log
-            const logEl = document.getElementById('activity-log');
-            logEl.innerHTML = '';
-            const logs = currentWeekData.logs || [];
-
-            if (logs.length === 0) {
-                logEl.innerHTML = `<li class="text-slate-400 text-center py-4">Chưa có lượt nhập điểm nào trong tuần này.</li>`;
+                confetti({
+                    particleCount: 60,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
             } else {
-                logs.slice().reverse().forEach(log => {
-                    let badgeClass = 'bg-emerald-100 text-emerald-700';
-                    let scoreText = `+${log.count * 5}đ (${log.count} lần)`;
-                    if (log.type === 'minor') { badgeClass = 'bg-amber-100 text-amber-700'; scoreText = `-${log.count * 1}đ (${log.count} lần)`; }
-                    else if (log.type === 'major') { badgeClass = 'bg-rose-100 text-rose-700'; scoreText = `-${log.count * 5}đ (${log.count} lần)`; }
-                    else if (log.type === 'absent') { badgeClass = 'bg-purple-100 text-purple-700'; scoreText = `-${log.count * 5}đ (vắng)`; }
+                playSound('wrong');
+                btnElement.disabled = true;
+                btnElement.className = "quiz-opt-btn p-3 rounded-xl bg-rose-900/80 border border-rose-500 text-rose-200 font-bold text-left text-sm flex items-center justify-between opacity-80 cursor-not-allowed";
+                btnElement.querySelector('.opt-icon').className = "opt-icon fa-solid fa-circle-xmark text-rose-400 text-lg";
 
-                    logEl.innerHTML += `
-                        <li class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-                            <div>
-                                <span class="font-bold text-slate-800">${log.name}</span>
-                                <span class="text-xs text-slate-400 ml-2">${log.time}</span>
-                                ${log.note ? `<p class="text-xs text-slate-500 italic">"${log.note}"</p>` : ''}
-                            </div>
-                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${badgeClass}">${scoreText}</span>
-                        </li>
-                    `;
-                });
+                feedbackBanner.className = "mb-4 p-3 rounded-xl font-bold text-center text-sm bg-rose-500/20 border border-rose-400 text-rose-300";
+                feedbackBanner.innerHTML = "❌ Chưa đúng rồi! Hãy thử chọn lại câu trả lời khác nhé!";
+            }
+            
+            feedbackBanner.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('questionModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-90');
+        }
+
+        // Tab Switching Logic
+        function switchTab(tab) {
+            const wheelTab = document.getElementById('tab-wheel');
+            const chestsTab = document.getElementById('tab-chests');
+            const btnWheel = document.getElementById('btn-tab-wheel');
+            const btnChests = document.getElementById('btn-tab-chests');
+
+            if (tab === 'wheel') {
+                wheelTab.classList.remove('hidden');
+                wheelTab.classList.add('flex');
+                chestsTab.classList.add('hidden');
+                chestsTab.classList.remove('flex');
+
+                btnWheel.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30 border border-cyan-300/40";
+                btnChests.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30";
+            } else {
+                chestsTab.classList.remove('hidden');
+                chestsTab.classList.add('flex');
+                wheelTab.classList.add('hidden');
+                wheelTab.classList.remove('flex');
+
+                btnChests.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30 border border-cyan-300/40";
+                btnWheel.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30";
             }
         }
 
-        function renderRankingTable() {
-            const tableBody = document.getElementById('ranking-table-body');
-            tableBody.innerHTML = '';
-
-            const rankedList = MEMBERS.map(m => ({
-                name: m,
-                s: currentWeekData.scores?.[m] || { speech: 0, minor: 0, major: 0, absent: 0 },
-                total: getMemberTotalScore(m)
-            })).sort((a, b) => b.total - a.total);
-
-            rankedList.forEach((item, idx) => {
-                let rankBadge = `<span class="w-6 h-6 flex items-center justify-center rounded-full bg-slate-200 text-slate-700 font-bold text-xs mx-auto">${idx + 1}</span>`;
-                if (idx === 0) rankBadge = `<span class="text-xl">🥇</span>`;
-                if (idx === 1) rankBadge = `<span class="text-xl">🥈</span>`;
-                if (idx === 2) rankBadge = `<span class="text-xl">🥉</span>`;
-
-                tableBody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="p-4 text-center">${rankBadge}</td>
-                        <td class="p-4 font-bold text-slate-800">${item.name}</td>
-                        <td class="p-4 text-center font-medium text-emerald-600">+${item.s.speech * 5} (${item.s.speech})</td>
-                        <td class="p-4 text-center font-medium text-amber-600">-${item.s.minor * 1} (${item.s.minor})</td>
-                        <td class="p-4 text-center font-medium text-rose-600">-${item.s.major * 5} (${item.s.major})</td>
-                        <td class="p-4 text-center font-medium text-purple-600">-${item.s.absent * 5} (${item.s.absent})</td>
-                        <td class="p-4 text-center font-extrabold text-base text-brand-600">${item.total}</td>
-                    </tr>
-                `;
-            });
+        // Manage Student List
+        function updateStudentCount() {
+            document.getElementById('studentCount').innerText = students.length;
+            document.getElementById('modalListCount').innerText = students.length;
         }
 
-        function renderMembersGrid() {
-            const grid = document.getElementById('members-grid');
-            grid.innerHTML = '';
-
-            MEMBERS.forEach(memberName => {
-                const s = currentWeekData.scores?.[memberName] || { speech: 0, minor: 0, major: 0, absent: 0 };
-                const total = getMemberTotalScore(memberName);
-
-                grid.innerHTML += `
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-brand-600 text-lg">
-                                ${memberName.charAt(0)}
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900">${memberName}</h4>
-                                <p class="text-xs text-slate-400">Thành viên Tổ 3</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-4 gap-1 text-center text-xs py-2 bg-slate-50 rounded-xl mb-4">
-                            <div><p class="text-slate-400">Phát biểu</p><p class="font-bold text-emerald-600">${s.speech}</p></div>
-                            <div><p class="text-slate-400">Lỗi</p><p class="font-bold text-amber-600">${s.minor}</p></div>
-                            <div><p class="text-slate-400">Đánh</p><p class="font-bold text-rose-600">${s.major}</p></div>
-                            <div><p class="text-slate-400">Vắng</p><p class="font-bold text-purple-600">${s.absent}</p></div>
-                        </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                            <span class="text-xs font-semibold text-slate-500">Điểm:</span>
-                            <span class="text-lg font-black text-brand-600">${total} đ</span>
-                        </div>
-                    </div>
-                `;
-            });
+        function toggleStudentListModal() {
+            const modal = document.getElementById('studentModal');
+            if (modal.classList.contains('opacity-0')) {
+                document.getElementById('studentTextarea').value = students.join('\n');
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }
         }
 
-        function adjustCount(delta) {
-            const input = document.getElementById('entryCount');
-            let val = parseInt(input.value) || 1;
-            val = Math.max(1, val + delta);
-            input.value = val;
+        function saveStudentList() {
+            const text = document.getElementById('studentTextarea').value;
+            const newStudents = text.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+            if (newStudents.length > 0) {
+                students = newStudents;
+                updateStudentCount();
+                drawWheel();
+                toggleStudentListModal();
+            } else {
+                alert('Danh sách không được để trống!');
+            }
         }
 
-        function handleScoreSubmit(e) {
-            e.preventDefault();
-            const memberName = document.getElementById('entryMember').value;
-            const actionType = document.querySelector('input[name="actionType"]:checked').value;
-            const count = Math.max(1, parseInt(document.getElementById('entryCount').value) || 1);
-            const note = document.getElementById('entryNote').value.trim();
-
-            const ref = db.ref(`weeks/week_${currentWeek}`);
-            
-            ref.transaction((currentData) => {
-                if (!currentData) {
-                    currentData = { scores: {}, logs: [] };
-                }
-                if (!currentData.scores) currentData.scores = {};
-                if (!currentData.scores[memberName]) {
-                    currentData.scores[memberName] = { speech: 0, minor: 0, major: 0, absent: 0 };
-                }
-                
-                // Cộng dồn điểm
-                currentData.scores[memberName][actionType] = (currentData.scores[memberName][actionType] || 0) + count;
-
-                // Thêm log lịch sử
-                if (!currentData.logs) currentData.logs = [];
-                const now = new Date();
-                const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-                
-                currentData.logs.push({
-                    name: memberName,
-                    type: actionType,
-                    count: count,
-                    note: note,
-                    time: timeStr
-                });
-
-                return currentData;
-            }, (error, committed) => {
-                if (!error && committed) {
-                    document.getElementById('entryNote').value = '';
-                    document.getElementById('entryCount').value = '1';
-                    showToast(`Đã cập nhật điểm cho ${memberName}!`);
-                    switchTab('dashboard');
-                }
-            });
+        // Ocean Background Bubbles Generator
+        function createBubbles() {
+            const container = document.getElementById('bubble-container');
+            container.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 20 + 8;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 6 + 4}s`;
+                bubble.style.animationDelay = `${Math.random() * 4}s`;
+                container.appendChild(bubble);
+            }
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').innerText = message;
-            toast.classList.remove('translate-x-full', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-x-full', 'opacity-0');
-            }, 3000);
-        }
+        // Initialization
+        window.onload = function() {
+            prepare50Chests();
+            initCanvas();
+            updateStudentCount();
+            drawWheel();
+            renderChestGrid();
+            createBubbles();
+        };
     </script>
 </body>
 </html>
