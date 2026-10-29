@@ -23,144 +23,160 @@
             font-family: 'Fredoka', cursive;
         }
 
-        /* Animated Deep Ocean Gradient Background */
+        /* AAA Deep Ocean Ultra-Vibrant Background */
         body {
-            background: linear-gradient(180deg, #0284c7 0%, #0369a1 25%, #0f4c81 60%, #081c3a 100%);
+            background: radial-gradient(circle at 50% 0%, #0284c7 0%, #0369a1 25%, #0f4c81 60%, #031329 100%);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Underwater Sun Rays Caustics */
+        /* Shimmering Underwater Sunbeams & Caustics */
         .sunrays {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 60vh;
+            height: 100vh;
             background: repeating-linear-gradient(
                 -45deg,
-                rgba(255, 255, 255, 0.08) 0px,
-                rgba(255, 255, 255, 0.08) 30px,
-                transparent 30px,
-                transparent 70px
+                rgba(56, 189, 248, 0.12) 0px,
+                rgba(56, 189, 248, 0.12) 40px,
+                transparent 40px,
+                transparent 90px
             );
             pointer-events: none;
-            animation: raysMove 10s ease-in-out infinite alternate;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            animation: raysMove 8s ease-in-out infinite alternate;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            z-index: 1;
         }
 
         @keyframes raysMove {
-            0% { transform: scaleX(1) translateX(0); opacity: 0.6; }
-            100% { transform: scaleX(1.2) translateX(-20px); opacity: 0.9; }
+            0% { transform: scaleX(1) translateX(0) rotate(0deg); opacity: 0.6; }
+            100% { transform: scaleX(1.25) translateX(-30px) rotate(2deg); opacity: 0.95; }
         }
 
-        /* Glassmorphism Panels */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* Ultra Glassmorphic Panels */
+        .glass-panel-vip {
+            background: rgba(10, 25, 47, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
-        /* Glowing Effects */
-        .glow-cyan {
-            box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+        /* Premium Glow Effects */
+        .glow-cyan-lg {
+            box-shadow: 0 0 35px rgba(6, 182, 212, 0.8), 0 0 70px rgba(6, 182, 212, 0.3);
         }
         
-        .glow-gold {
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.8);
+        .glow-gold-lg {
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.9), 0 0 80px rgba(245, 158, 11, 0.4);
         }
 
-        /* Cartoon Sea Creatures Animations */
-        .swim-left-to-right {
-            animation: swimLTR 18s linear infinite;
+        /* Screen Shake Effect */
+        .shake-screen {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
-        .swim-right-to-left {
-            animation: swimRTL 22s linear infinite;
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
         }
-        .float-bob {
-            animation: floatBob 4s ease-in-out infinite alternate;
-        }
-        .sway-seaweed {
-            transform-origin: bottom center;
-            animation: sway 3s ease-in-out infinite alternate;
-        }
+
+        /* Animated Sea Creatures */
+        .swim-left-to-right { animation: swimLTR 16s linear infinite; }
+        .swim-right-to-left { animation: swimRTL 20s linear infinite; }
+        .float-bob { animation: floatBob 3.5s ease-in-out infinite alternate; }
+        .sway-seaweed { transform-origin: bottom center; animation: sway 2.5s ease-in-out infinite alternate; }
+        .pulse-glow { animation: pulseGlow 2s ease-in-out infinite alternate; }
 
         @keyframes swimLTR {
-            0% { transform: translateX(-150px) translateY(0) scaleX(1); }
-            50% { transform: translateX(50vw) translateY(-20px) scaleX(1); }
-            100% { transform: translateX(calc(100vw + 150px)) translateY(10px) scaleX(1); }
+            0% { transform: translateX(-180px) translateY(0) scaleX(1); }
+            50% { transform: translateX(50vw) translateY(-25px) scaleX(1); }
+            100% { transform: translateX(calc(100vw + 180px)) translateY(15px) scaleX(1); }
         }
 
         @keyframes swimRTL {
-            0% { transform: translateX(calc(100vw + 150px)) translateY(0) scaleX(-1); }
-            50% { transform: translateX(50vw) translateY(30px) scaleX(-1); }
-            100% { transform: translateX(-150px) translateY(-10px) scaleX(-1); }
+            0% { transform: translateX(calc(100vw + 180px)) translateY(0) scaleX(-1); }
+            50% { transform: translateX(50vw) translateY(35px) scaleX(-1); }
+            100% { transform: translateX(-180px) translateY(-15px) scaleX(-1); }
         }
 
         @keyframes floatBob {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-18px) rotate(4deg); }
+            0% { transform: translateY(0px) rotate(-3deg); }
+            100% { transform: translateY(-22px) rotate(5deg); }
         }
 
         @keyframes sway {
-            0% { transform: rotate(-8deg); }
-            100% { transform: rotate(10deg); }
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(12deg); }
         }
 
-        /* Bubbles Animation */
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4)); }
+            100% { filter: drop-shadow(0 0 20px rgba(251, 191, 36, 1)); }
+        }
+
+        /* Glowing Particles/Bubbles */
         .bubble {
             position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.1));
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(56, 189, 248, 0.2));
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             pointer-events: none;
-            animation: rise 8s infinite linear;
-            box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.5);
+            animation: rise 7s infinite linear;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes rise {
-            0% { bottom: -50px; transform: translateX(0) scale(0.6); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { bottom: 108%; transform: translateX(60px) scale(1.2); opacity: 0; }
+            0% { bottom: -60px; transform: translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.9; }
+            80% { opacity: 0.9; }
+            100% { bottom: 110%; transform: translateX(80px) scale(1.3); opacity: 0; }
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #0284c7;
-            border-radius: 4px;
-        }
-
-        /* Interactive Chest Card Styling */
+        /* Chest Box VIP Styling */
         .chest-card {
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
         }
         .chest-card:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(56, 189, 248, 0.5);
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.6), 0 0 20px rgba(56, 189, 248, 0.8);
             border-color: #fbbf24;
         }
         .chest-card.opened {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border-color: #475569;
-            opacity: 0.85;
+            background: linear-gradient(145deg, #0f172a, #020617);
+            border-color: #334155;
+            opacity: 0.7;
             transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Pulse Button Effect */
+        .btn-vip-gold {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.6), 0 6px 0 #b45309;
+            transition: all 0.15s ease;
+        }
+        .btn-vip-gold:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.9), 0 8px 0 #b45309;
+        }
+        .btn-vip-gold:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.6), 0 2px 0 #b45309;
         }
     </style>
 </head>
-<body class="text-white flex flex-col justify-between min-h-screen">
+<body id="mainBody" class="text-white flex flex-col justify-between min-h-screen">
 
     <!-- Ambient Ocean Light Rays -->
     <div class="sunrays"></div>
@@ -168,76 +184,77 @@
     <!-- Floating Bubbles Container -->
     <div id="bubble-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden"></div>
 
-    <!-- CARTOON SEA CREATURES OVERLAY -->
+    <!-- CARTOON SEA CREATURES OVERLAY WITH VIP EFFECTS -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <!-- Cartoon Fish (Clownfish Nemo) -->
-        <div class="absolute top-[18%] swim-left-to-right opacity-90">
-            <svg class="w-16 h-16 drop-shadow-lg" viewBox="0 0 100 100">
+        <div class="absolute top-[15%] swim-left-to-right opacity-90 filter drop-shadow-[0_0_15px_rgba(249,115,22,0.8)]">
+            <svg class="w-20 h-20" viewBox="0 0 100 100">
                 <path d="M20,50 Q40,20 70,50 Q40,80 20,50" fill="#f97316"/>
                 <path d="M70,50 L90,30 L85,50 L90,70 Z" fill="#f97316"/>
                 <path d="M35,30 Q40,50 35,70 Q43,70 45,50 Q43,30 35,30" fill="#ffffff"/>
                 <path d="M55,23 Q60,50 55,77 Q62,77 64,50 Q62,23 55,23" fill="#ffffff"/>
-                <circle cx="30" cy="42" r="3" fill="#000000"/>
+                <circle cx="30" cy="42" r="3.5" fill="#000000"/>
+                <circle cx="31" cy="41" r="1.2" fill="#ffffff"/>
             </svg>
         </div>
 
         <!-- Cartoon Dolphin -->
-        <div class="absolute top-[40%] swim-right-to-left opacity-80" style="animation-delay: -5s;">
-            <svg class="w-24 h-24 drop-shadow-xl" viewBox="0 0 100 100">
+        <div class="absolute top-[38%] swim-right-to-left opacity-85 filter drop-shadow-[0_0_20px_rgba(56,189,248,0.8)]" style="animation-delay: -4s;">
+            <svg class="w-28 h-28" viewBox="0 0 100 100">
                 <path d="M10,50 Q30,20 70,30 Q90,35 95,45 Q80,50 60,55 Q30,65 10,50 Z" fill="#38bdf8"/>
                 <path d="M50,30 L60,10 L65,28 Z" fill="#0284c7"/>
                 <path d="M10,50 L0,35 L5,50 L0,65 Z" fill="#0284c7"/>
-                <circle cx="80" cy="40" r="2.5" fill="#0f172a"/>
+                <circle cx="80" cy="40" r="3" fill="#0f172a"/>
             </svg>
         </div>
 
-        <!-- Cartoon Jellyfish -->
-        <div class="absolute top-[25%] right-[10%] float-bob opacity-85">
-            <svg class="w-16 h-20 drop-shadow-md" viewBox="0 0 100 120">
-                <path d="M20,50 Q20,10 50,10 Q80,10 80,50 Q50,60 20,50" fill="#ec4899" opacity="0.8"/>
-                <path d="M30,55 Q25,80 35,110 M45,57 Q50,85 45,115 M60,57 Q55,85 60,110 M70,55 Q75,80 65,105" stroke="#f472b6" stroke-width="4" fill="none" stroke-linecap="round"/>
-                <circle cx="38" cy="35" r="3" fill="#ffffff"/>
-                <circle cx="62" cy="35" r="3" fill="#ffffff"/>
+        <!-- Cartoon Jellyfish with Glow -->
+        <div class="absolute top-[22%] right-[8%] float-bob opacity-90 filter drop-shadow-[0_0_25px_rgba(244,114,182,0.9)]">
+            <svg class="w-20 h-24" viewBox="0 0 100 120">
+                <path d="M20,50 Q20,10 50,10 Q80,10 80,50 Q50,60 20,50" fill="#ec4899" opacity="0.85"/>
+                <path d="M30,55 Q25,80 35,110 M45,57 Q50,85 45,115 M60,57 Q55,85 60,110 M70,55 Q75,80 65,105" stroke="#f472b6" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                <circle cx="38" cy="35" r="3.5" fill="#ffffff"/>
+                <circle cx="62" cy="35" r="3.5" fill="#ffffff"/>
             </svg>
         </div>
 
-        <!-- Cartoon Turtle -->
-        <div class="absolute top-[65%] swim-left-to-right opacity-85" style="animation-delay: -9s;">
-            <svg class="w-20 h-20 drop-shadow-lg" viewBox="0 0 100 100">
+        <!-- Cartoon Sea Turtle -->
+        <div class="absolute top-[68%] swim-left-to-right opacity-85 filter drop-shadow-[0_0_15px_rgba(34,197,94,0.8)]" style="animation-delay: -8s;">
+            <svg class="w-24 h-24" viewBox="0 0 100 100">
                 <ellipse cx="50" cy="50" rx="30" ry="22" fill="#16a34a"/>
                 <ellipse cx="50" cy="50" rx="26" ry="18" fill="#22c55e"/>
                 <circle cx="82" cy="50" r="10" fill="#15803d"/>
-                <circle cx="85" cy="47" r="2" fill="#ffffff"/>
+                <circle cx="85" cy="47" r="2.5" fill="#ffffff"/>
                 <ellipse cx="35" cy="28" rx="12" ry="6" fill="#15803d" transform="rotate(-30 35 28)"/>
                 <ellipse cx="35" cy="72" rx="12" ry="6" fill="#15803d" transform="rotate(30 35 72)"/>
             </svg>
         </div>
     </div>
 
-    <!-- TOP NAVBAR -->
-    <header class="relative z-20 px-4 py-3 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4">
+    <!-- TOP NAVBAR WITH SHIMMER -->
+    <header class="relative z-20 px-4 py-4 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-amber-400 flex items-center justify-center text-2xl shadow-lg border-2 border-white/40">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 via-amber-400 to-yellow-300 flex items-center justify-center text-3xl shadow-xl border-2 border-white/60 pulse-glow">
                 ⚓
             </div>
             <div>
-                <h1 class="text-xl sm:text-2xl font-black tracking-wide font-fredoka bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-cyan-200 to-white">
+                <h1 class="text-2xl sm:text-3xl font-black tracking-wide font-fredoka bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-200 to-white drop-shadow-[0_2px_10px_rgba(245,158,11,0.8)]">
                     TRUY TÌM KHO BÁU ĐẠI DƯƠNG
                 </h1>
-                <p class="text-xs text-cyan-200/80 font-semibold">Giờ Sinh Hoạt Lớp Sôi Động • 40 Thành Viên</p>
+                <p class="text-xs sm:text-sm text-cyan-200 font-bold tracking-wider">🌟 GIỜ SINH HOẠT LỚP SIÊU BÙNG NỔ • 40 THÀNH VIÊN 🌟</p>
             </div>
         </div>
 
-        <!-- Tab Controls -->
-        <div class="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-2xl border border-cyan-500/30">
-            <button id="btn-tab-wheel" onclick="switchTab('wheel')" class="px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30 border border-cyan-300/40">
-                <i class="fa-solid fa-dharmachakra text-amber-300 animate-spin-slow"></i>
-                <span>Vòng Quay</span>
+        <!-- Tab Controls VIP -->
+        <div class="flex items-center gap-2 bg-slate-950/80 p-2 rounded-2xl border-2 border-cyan-400/50 shadow-2xl">
+            <button id="btn-tab-wheel" onclick="switchTab('wheel')" class="px-6 py-2.5 rounded-xl font-black transition flex items-center gap-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/40 border border-cyan-200 text-white">
+                <i class="fa-solid fa-dharmachakra text-amber-300 text-lg animate-spin-slow"></i>
+                <span>VÒNG QUAY</span>
             </button>
-            <button id="btn-tab-chests" onclick="switchTab('chests')" class="px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30">
-                <i class="fa-solid fa-box-archive text-amber-400"></i>
-                <span>50 Rương Báu</span>
-                <span id="openedCount" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-cyan-500/30 text-cyan-300 font-black">0/50</span>
+            <button id="btn-tab-chests" onclick="switchTab('chests')" class="px-6 py-2.5 rounded-xl font-black transition flex items-center gap-2.5 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30 text-slate-200">
+                <i class="fa-solid fa-box-archive text-amber-400 text-lg"></i>
+                <span>50 RƯƠNG BÁU</span>
+                <span id="openedCount" class="ml-1 px-2.5 py-0.5 text-xs rounded-full bg-amber-400 text-slate-950 font-black shadow-md">0/50</span>
             </button>
         </div>
     </header>
@@ -246,56 +263,56 @@
     <main class="relative z-20 max-w-7xl mx-auto w-full px-4 py-2 flex-1 flex flex-col justify-center">
 
         <!-- TAB 1: LUCKY WHEEL SECTION -->
-        <section id="tab-wheel" class="flex flex-col lg:flex-row items-center justify-center gap-8 py-4">
+        <section id="tab-wheel" class="flex flex-col lg:flex-row items-center justify-center gap-10 py-4">
             
-            <!-- CANVAS WHEEL CONTAINER -->
+            <!-- CANVAS WHEEL CONTAINER WITH ULTRA GLOW -->
             <div class="relative flex items-center justify-center p-4">
-                <!-- Pointer Arrow -->
-                <div class="absolute -top-3 z-30 transform -translate-x-1/2 left-1/2 filter drop-shadow-xl">
-                    <div class="w-0 h-0 border-l-[18px] border-l-transparent border-r-[18px] border-r-transparent border-t-[36px] border-t-amber-400"></div>
+                <!-- Pointer Arrow with Pulsing Golden Glow -->
+                <div class="absolute -top-4 z-30 transform -translate-x-1/2 left-1/2 filter drop-shadow-[0_0_20px_rgba(245,158,11,1)]">
+                    <div class="w-0 h-0 border-l-[22px] border-l-transparent border-r-[22px] border-r-transparent border-t-[44px] border-t-amber-400"></div>
                 </div>
 
                 <!-- Outer Glowing Ring -->
-                <div class="relative p-3 rounded-full bg-gradient-to-b from-cyan-400/40 via-blue-600/30 to-amber-500/40 border-4 border-amber-400/80 glow-cyan">
-                    <canvas id="wheelCanvas" width="480" height="480" class="max-w-[88vw] max-h-[88vw] sm:w-[460px] sm:h-[460px] rounded-full cursor-pointer shadow-2xl"></canvas>
+                <div class="relative p-4 rounded-full bg-gradient-to-b from-cyan-400 via-blue-600 to-amber-500 border-4 border-amber-300 glow-cyan-lg">
+                    <canvas id="wheelCanvas" width="500" height="500" class="max-w-[88vw] max-h-[88vw] sm:w-[480px] sm:h-[480px] rounded-full cursor-pointer shadow-2xl"></canvas>
                 </div>
             </div>
 
             <!-- CONTROLS & WINNER DISPLAY -->
-            <div class="w-full lg:w-96 flex flex-col items-center lg:items-start gap-5">
+            <div class="w-full lg:w-96 flex flex-col items-center lg:items-start gap-6">
                 
-                <!-- Winner Announcement Box -->
-                <div class="w-full glass-panel rounded-3xl p-6 text-center border-2 border-amber-400/50 glow-gold relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-3 opacity-10 text-6xl">🏆</div>
-                    <h3 class="text-xs uppercase tracking-widest font-black text-cyan-300 mb-2">Thuyền Trưởng May Mắn</h3>
+                <!-- Winner Announcement Box VIP -->
+                <div class="w-full glass-panel-vip rounded-3xl p-6 text-center border-2 border-amber-400 glow-gold-lg relative overflow-hidden">
+                    <div class="absolute -top-4 -right-4 p-4 opacity-15 text-8xl">👑</div>
+                    <h3 class="text-xs uppercase tracking-widest font-black text-cyan-300 mb-2">🏆 THUYỀN TRƯỞNG TRÚNG LỚN 🏆</h3>
                     
-                    <div id="winnerDisplay" class="min-h-[70px] flex items-center justify-center">
-                        <span class="text-slate-400 text-sm italic">Sẵn sàng quay để chọn ngẫu nhiên 1 bạn...</span>
+                    <div id="winnerDisplay" class="min-h-[75px] flex items-center justify-center">
+                        <span class="text-slate-300 text-sm font-semibold italic">Nhấn nút bên dưới để quay tìm người may mắn...</span>
                     </div>
 
                     <!-- Next Action Button -->
                     <div id="nextStepBox" class="mt-4 pt-4 border-t border-cyan-500/30 hidden">
-                        <button onclick="goToChestsWithWinner()" class="w-full py-3 px-4 rounded-xl font-black bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition">
-                            <span>Mở Rương Báu Cho <b id="currentTurnName">Bạn</b></span>
+                        <button onclick="goToChestsWithWinner()" class="w-full py-3.5 px-4 rounded-2xl font-black btn-vip-gold text-slate-950 flex items-center justify-center gap-2 font-fredoka text-lg">
+                            <span>MỞ RƯƠNG CHO <b id="currentTurnName">BẠN</b></span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Spin Action Button -->
-                <button id="spinBtn" onclick="spinWheel()" class="w-full py-5 px-8 rounded-2xl font-black text-2xl text-slate-950 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 hover:brightness-110 shadow-2xl shadow-amber-500/40 border-2 border-yellow-200 transform active:scale-95 transition flex items-center justify-center gap-3 font-fredoka">
-                    <i class="fa-solid fa-compass text-2xl"></i>
-                    <span>QUAY NGAY!</span>
+                <!-- Spin Action Button VIP -->
+                <button id="spinBtn" onclick="spinWheel()" class="w-full py-5 px-8 rounded-2xl font-black text-2xl text-slate-950 btn-vip-gold font-fredoka tracking-wide flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-compass text-3xl animate-spin-slow"></i>
+                    <span>QUAY VÒNG QUAY!</span>
                 </button>
 
                 <!-- Class List Quick Info -->
-                <div class="w-full glass-panel rounded-2xl p-4 flex items-center justify-between text-sm">
+                <div class="w-full glass-panel-vip rounded-2xl p-4 flex items-center justify-between text-sm">
                     <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-users text-cyan-400 text-lg"></i>
-                        <span class="font-bold">Danh Sách Lớp: <b id="studentCount" class="text-amber-300">40</b> Bạn</span>
+                        <i class="fa-solid fa-users text-cyan-300 text-xl"></i>
+                        <span class="font-black text-base">Sĩ số: <b id="studentCount" class="text-amber-300 text-lg">40</b> bạn</span>
                     </div>
-                    <button onclick="toggleStudentListModal()" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-200 text-xs font-bold border border-cyan-400/30">
-                        <i class="fa-solid fa-pen-to-square"></i> Xem/Sửa
+                    <button onclick="toggleStudentListModal()" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-200 text-xs font-black border border-cyan-400/40">
+                        <i class="fa-solid fa-pen-to-square"></i> Danh Sách
                     </button>
                 </div>
             </div>
@@ -306,16 +323,16 @@
         <section id="tab-chests" class="hidden flex-col items-center gap-6 py-4">
             
             <div class="text-center max-w-2xl">
-                <h2 class="text-2xl sm:text-3xl font-black font-fredoka text-amber-300 drop-shadow">
+                <h2 class="text-3xl sm:text-4xl font-black font-fredoka text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 drop-shadow-[0_2px_10px_rgba(245,158,11,0.8)]">
                     🏴‍☠️ 50 RƯƠNG BÁU ĐẠI DƯƠNG
                 </h2>
-                <p class="text-xs sm:text-sm text-cyan-100/80 mt-1">
-                    45 Câu hỏi ôn tập rải rác & 5 Rương Đặc Biệt miễn thử thách!
+                <p class="text-xs sm:text-sm text-cyan-200 font-bold mt-1">
+                    45 Câu hỏi thử thách cực xịn & 5 Rương Đặc Biệt Miễn Phí Qua Ải!
                 </p>
             </div>
 
             <!-- 50 CHESTS GRID -->
-            <div id="chestGrid" class="w-full max-w-5xl grid grid-cols-5 sm:grid-cols-10 gap-2.5 sm:gap-3.5 p-4 glass-panel rounded-3xl max-h-[62vh] overflow-y-auto">
+            <div id="chestGrid" class="w-full max-w-5xl grid grid-cols-5 sm:grid-cols-10 gap-3 sm:gap-4 p-5 glass-panel-vip rounded-3xl max-h-[62vh] overflow-y-auto">
             </div>
 
         </section>
@@ -325,85 +342,83 @@
     <!-- OCEAN FLOOR CARTOON DECORATION -->
     <footer class="relative z-10 w-full mt-auto pointer-events-none">
         <div class="relative w-full h-24 sm:h-32 flex items-end justify-between px-4 sm:px-12 overflow-hidden">
-            
             <!-- Left Seaweed & Coral Reef -->
             <div class="flex items-end gap-1 sm:gap-3">
-                <div class="sway-seaweed text-emerald-400 text-4xl sm:text-6xl">🌿</div>
-                <div class="sway-seaweed text-rose-400 text-3xl sm:text-5xl" style="animation-delay: -1s;">🪸</div>
-                <div class="text-amber-400 text-3xl sm:text-4xl float-bob">⭐</div>
-                <div class="sway-seaweed text-teal-300 text-5xl sm:text-7xl" style="animation-delay: -2s;">🌿</div>
+                <div class="sway-seaweed text-emerald-400 text-5xl sm:text-7xl">🌿</div>
+                <div class="sway-seaweed text-rose-400 text-4xl sm:text-6xl" style="animation-delay: -1s;">🪸</div>
+                <div class="text-amber-400 text-4xl sm:text-5xl float-bob pulse-glow">⭐</div>
+                <div class="sway-seaweed text-teal-300 text-6xl sm:text-8xl" style="animation-delay: -2s;">🌿</div>
             </div>
 
             <!-- Center Ocean Floor Scene -->
-            <div class="flex items-center gap-4 bg-slate-950/60 backdrop-blur-md px-6 py-2 rounded-t-2xl border-t border-cyan-500/30 text-xs text-cyan-200/80 pointer-events-auto">
-                <span>🐙 Thủy Cung Bí Ẩn</span>
+            <div class="flex items-center gap-4 bg-slate-950/80 backdrop-blur-md px-8 py-2.5 rounded-t-3xl border-t-2 border-cyan-400/50 text-xs font-black text-cyan-200 pointer-events-auto shadow-2xl">
+                <span>🐙 Thủy Cung Kho Báu</span>
                 <span>•</span>
                 <span>🐚 Sinh Hoạt Lớp Sôi Động</span>
             </div>
 
             <!-- Right Coral & Shell Treasure -->
             <div class="flex items-end gap-1 sm:gap-3">
-                <div class="text-pink-300 text-3xl sm:text-5xl float-bob" style="animation-delay: -1.5s;">🦪</div>
-                <div class="sway-seaweed text-purple-400 text-4xl sm:text-6xl" style="animation-delay: -0.5s;">🪸</div>
-                <div class="sway-seaweed text-emerald-500 text-5xl sm:text-7xl" style="animation-delay: -1.8s;">🌿</div>
+                <div class="text-pink-300 text-4xl sm:text-6xl float-bob" style="animation-delay: -1.5s;">🦪</div>
+                <div class="sway-seaweed text-purple-400 text-5xl sm:text-7xl" style="animation-delay: -0.5s;">🪸</div>
+                <div class="sway-seaweed text-emerald-500 text-6xl sm:text-8xl" style="animation-delay: -1.8s;">🌿</div>
             </div>
-
         </div>
         <!-- Sandy Ocean Floor Base -->
-        <div class="w-full h-4 bg-gradient-to-r from-amber-800 via-yellow-700 to-amber-900 opacity-90"></div>
+        <div class="w-full h-5 bg-gradient-to-r from-amber-800 via-yellow-700 to-amber-900 border-t border-amber-600/50"></div>
     </footer>
 
-    <!-- MODAL 1: QUESTION / CHALLENGE DISPLAY -->
-    <div id="questionModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border-2 border-amber-400/80 glow-gold transform scale-90 transition-all duration-300 relative text-center">
+    <!-- MODAL 1: QUESTION / CHALLENGE DISPLAY VIP -->
+    <div id="questionModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-lg opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel-vip w-full max-w-lg rounded-3xl p-6 sm:p-8 border-2 border-amber-400 glow-gold-lg transform scale-90 transition-all duration-300 relative text-center">
             
-            <div class="w-16 h-16 rounded-full bg-amber-400/20 border-2 border-amber-400 flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+            <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-300 border-4 border-white flex items-center justify-center text-4xl mx-auto mb-4 animate-bounce shadow-xl text-slate-950">
                 🎁
             </div>
 
-            <span id="modalChestNum" class="text-xs font-black uppercase tracking-widest text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/30">
+            <span id="modalChestNum" class="text-xs font-black uppercase tracking-widest text-amber-300 bg-amber-400/20 px-4 py-1.5 rounded-full border border-amber-400/40">
                 RƯƠNG SỐ #--
             </span>
 
             <div id="modalTypeBadge" class="mt-3"></div>
 
-            <div class="my-4 min-h-[80px] flex items-center justify-center">
-                <p id="questionText" class="text-base sm:text-lg font-extrabold text-white leading-relaxed">
+            <div class="my-5 min-h-[85px] flex items-center justify-center">
+                <p id="questionText" class="text-lg sm:text-xl font-extrabold text-white leading-relaxed">
                     Nội dung câu hỏi đang được tải...
                 </p>
             </div>
 
             <!-- Interactive Quiz Options Container -->
-            <div id="quizOptionsContainer" class="hidden grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-left"></div>
+            <div id="quizOptionsContainer" class="hidden grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5 text-left"></div>
 
             <!-- Feedback Alert Banner -->
-            <div id="feedbackBanner" class="hidden mb-4 p-3 rounded-xl font-bold text-center text-sm transition-all"></div>
+            <div id="feedbackBanner" class="hidden mb-4 p-3.5 rounded-2xl font-black text-center text-sm transition-all shadow-lg"></div>
 
-            <button id="closeModalBtn" onclick="closeModal()" class="w-full py-3.5 px-6 rounded-2xl font-black bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg border border-cyan-300/40 transform active:scale-95 transition">
+            <button id="closeModalBtn" onclick="closeModal()" class="w-full py-4 px-6 rounded-2xl font-black bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-xl border border-cyan-300/50 transform active:scale-95 transition text-base tracking-wide font-fredoka">
                 HOÀN THÀNH / ĐÓNG
             </button>
         </div>
     </div>
 
     <!-- MODAL 2: STUDENT LIST MANAGER -->
-    <div id="studentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="glass-panel w-full max-w-md rounded-3xl p-6 border-2 border-cyan-400/50 transform transition-all relative">
-            <h3 class="text-lg font-black text-amber-300 mb-2 flex items-center gap-2">
+    <div id="studentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-lg opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-panel-vip w-full max-w-md rounded-3xl p-6 border-2 border-cyan-400 transform transition-all relative">
+            <h3 class="text-xl font-black text-amber-300 mb-2 flex items-center gap-2">
                 <i class="fa-solid fa-users"></i>
                 <span>Danh Sách Học Sinh (<span id="modalListCount">0</span>)</span>
             </h3>
-            <p class="text-xs text-slate-300 mb-3">Mỗi tên nằm trên 1 dòng khác nhau:</p>
+            <p class="text-xs text-slate-300 mb-3 font-semibold">Mỗi tên nằm trên 1 dòng khác nhau:</p>
             
-            <textarea id="studentTextarea" class="w-full h-64 p-3 rounded-xl bg-slate-900/90 border border-cyan-500/40 text-sm text-cyan-100 focus:outline-none focus:border-amber-400 resize-none font-mono"></textarea>
+            <textarea id="studentTextarea" class="w-full h-64 p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/50 text-sm text-cyan-100 focus:outline-none focus:border-amber-400 resize-none font-mono shadow-inner"></textarea>
 
             <div class="flex items-center justify-end gap-3 mt-4">
-                <button onclick="toggleStudentListModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700">Hủy</button>
-                <button onclick="saveStudentList()" class="px-5 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 hover:brightness-110">Cập Nhật</button>
+                <button onclick="toggleStudentListModal()" class="px-5 py-2.5 rounded-xl text-xs font-black bg-slate-800 hover:bg-slate-700 text-slate-200">Hủy</button>
+                <button onclick="saveStudentList()" class="px-6 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 hover:brightness-110 shadow-lg">Cập Nhật</button>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT LOGIC -->
+    <!-- AUDIO SYNTHESIZER & GAME LOGIC -->
     <script>
         // 1. DATA: List of Students
         const defaultStudents = [
@@ -421,63 +436,63 @@
 
         // 2. DATA: 45 Full Questions from Subjects
         const raw45Questions = [
-            // --- TOÁN 8 (5 câu) ---
+            // --- TOÁN 8 ---
             { type: 'quiz', question: '📐 [Toán 8] Khai triển hằng đẳng thức (x + 1)² ta được kết quả là:', options: ['A. x² + 1', 'B. x² + 2x + 1', 'C. x² + x + 1', 'D. x² - 2x + 1'], correctIndex: 1 },
             { type: 'quiz', question: '📐 [Toán 8] Trong các biểu thức sau, đâu là đơn thức?', options: ['A. x + 2', 'B. x / y', 'C. 5x²y', 'D. 3x - 1'], correctIndex: 2 },
             { type: 'quiz', question: '📐 [Toán 8] Thu gọn biểu thức 2x + 3x, ta được kết quả là:', options: ['A. 5x', 'B. 6x', 'C. 5x²', 'D. 6x²'], correctIndex: 0 },
             { type: 'quiz', question: '📐 [Toán 8] Tổng số đo bốn góc trong một tứ giác bất kì bằng bao nhiêu độ?', options: ['A. 90°', 'B. 180°', 'C. 270°', 'D. 360°'], correctIndex: 3 },
             { type: 'quiz', question: '📐 [Toán 8] Hình thang cân là hình thang có hai góc kề một đáy thế nào với nhau?', options: ['A. Bằng nhau', 'B. Bù nhau (tổng bằng 180°)', 'C. Phụ nhau (tổng bằng 90°)', 'D. Khác nhau'], correctIndex: 0 },
 
-            // --- TIẾNG ANH 8 (5 câu) ---
+            // --- TIẾNG ANH 8 ---
             { type: 'quiz', question: '🇬🇧 [Tiếng Anh] My house is big, but your house is ________ (lớn hơn) than mine.', options: ['A. big', 'B. bigger', 'C. biggest', 'D. more big'], correctIndex: 1 },
             { type: 'quiz', question: '🇬🇧 [Tiếng Anh] Từ trái nghĩa với từ "hot" (nóng) là gì?', options: ['A. Cold', 'B. Warm', 'C. Cool', 'D. Big'], correctIndex: 0 },
             { type: 'quiz', question: '🇬🇧 [Tiếng Anh] He usually ________ (play) football on Sunday.', options: ['A. play', 'B. plays', 'C. playing', 'D. played'], correctIndex: 1 },
             { type: 'quiz', question: '🇬🇧 [Tiếng Anh] I love ________ (listen) to music.', options: ['A. listen', 'B. listens', 'C. listening', 'D. to listen'], correctIndex: 2 },
             { type: 'quiz', question: '🇬🇧 [Tiếng Anh] Tìm từ có phần gạch chân/loại từ khác nhất: cat, map, hat, boy', options: ['A. cat', 'B. map', 'C. hat', 'D. boy'], correctIndex: 3 },
 
-            // --- CÔNG NGHỆ 8 (5 câu) ---
+            // --- CÔNG NGHỆ 8 ---
             { type: 'quiz', question: '🛠️ [Công Nghệ 8] Hướng chiếu từ trước tới vật thể sẽ thu được hình chiếu nào?', options: ['A. Hình chiếu đứng', 'B. Hình chiếu bằng', 'C. Hình chiếu cạnh', 'D. Hình chiếu ngang'], correctIndex: 0 },
             { type: 'quiz', question: '🛠️ [Công Nghệ 8] Trên bản vẽ, hình chiếu bằng nằm ở đâu so với hình chiếu đứng?', options: ['A. Nằm ở phía trên', 'B. Nằm ở phía dưới', 'C. Nằm ở bên phải', 'D. Nằm ở bên trái'], correctIndex: 1 },
             { type: 'quiz', question: '🛠️ [Công Nghệ 8] Khi quay hình chữ nhật một vòng quanh một cạnh cố định, ta được khối gì?', options: ['A. Hình nón', 'B. Hình trụ', 'C. Hình cầu', 'D. Hình chóp'], correctIndex: 1 },
             { type: 'quiz', question: '🛠️ [Công Nghệ 8] Trên bản vẽ kỹ thuật, đường bao thấy và cạnh thấy của vật thể được vẽ bằng nét nào?', options: ['A. Nét đứt mảnh', 'B. Nét liền mảnh', 'C. Nét liền đậm', 'D. Nét gạch chấm'], correctIndex: 2 },
             { type: 'quiz', question: '🛠️ [Công Nghệ 8] Tỉ lệ 1:1 trên bản vẽ kỹ thuật có ý nghĩa là gì?', options: ['A. Tỉ lệ thu nhỏ', 'B. Tỉ lệ phóng to', 'C. Tỉ lệ nguyên hình (kích thước thật)', 'D. Tỉ lệ vẽ tạm'], correctIndex: 2 },
 
-            // --- NGỮ VĂN 8 (5 câu) ---
+            // --- NGỮ VĂN 8 ---
             { type: 'quiz', question: '📝 [Ngữ Văn 8] Bài thơ thất ngôn bát cú Đường luật có tổng cộng bao nhiêu câu thơ và mỗi câu có bao nhiêu chữ?', options: ['A. 4 câu, mỗi câu 7 chữ', 'B. 8 câu, mỗi câu 7 chữ', 'C. 8 câu, mỗi câu 6 chữ', 'D. 6 câu, mỗi câu 8 chữ'], correctIndex: 1 },
             { type: 'quiz', question: '📝 [Ngữ Văn 8] Văn bản "Lá cờ thêu sáu chữ vàng" của Nguyễn Huy Tưởng kể về người anh hùng trẻ tuổi nào?', options: ['A. Quang Trung (Nguyễn Huệ)', 'B. Trần Quốc Toản', 'C. Trần Quốc Tuấn', 'D. Lê Lợi'], correctIndex: 1 },
             { type: 'quiz', question: '📝 [Ngữ Văn 8] Từ nào sau đây là từ tượng thanh (từ mô phỏng âm thanh)?', options: ['A. Lấp lánh', 'B. Róc rách', 'C. Mênh mông', 'D. Xinh xắn'], correctIndex: 1 },
             { type: 'quiz', question: '📝 [Ngữ Văn 8] Đoạn văn có câu chủ đề nằm ở đầu đoạn, các câu sau triển khai làm rõ ý cho câu đầu tiên là kiểu đoạn văn nào?', options: ['A. Đoạn văn quy nạp', 'B. Đoạn văn song song', 'C. Đoạn văn diễn dịch', 'D. Đoạn văn phối hợp'], correctIndex: 2 },
             { type: 'quiz', question: '📝 [Ngữ Văn 8] Từ nào sau đây là từ ngữ địa phương thường dùng ở miền Nam?', options: ['A. Ba (bố)', 'B. Chè (trà)', 'C. Ngô (bắp)', 'D. Chén (bát ăn cơm)'], correctIndex: 3 },
 
-            // --- KHOA HỌC TỰ NHIÊN - HÓA HỌC (5 câu) ---
+            // --- KHOA HỌC TỰ NHIÊN - HÓA HỌC ---
             { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Quá trình nào sau đây là hiện tượng hóa học (có sự tạo thành chất mới)?', options: ['A. Nước đá tan thành nước lỏng', 'B. Đốt cháy thanh gỗ thành than', 'C. Hòa tan đường vào nước', 'D. Xé nhỏ một tờ giấy'], correctIndex: 1 },
             { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Phân tử khối của khí Cacbonic (CO₂), biết nguyên tử khối C = 12, O = 16 là:', options: ['A. 28', 'B. 44', 'C. 32', 'D. 56'], correctIndex: 1 },
             { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Chất nào sau đây là đơn chất (được tạo nên từ 1 nguyên tố hóa học)?', options: ['A. Nước (H₂O)', 'B. Khí Ôxi (O₂)', 'C. Muối ăn (NaCl)', 'D. Khí Cacbonic (CO₂)'], correctIndex: 1 },
             { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Cho phản ứng A + B → C + D. Công thức đúng theo Định luật bảo toàn khối lượng là:', options: ['A. mA + mB = mC + mD', 'B. mA + mC = mB + mD', 'C. mA - mB = mC + mD', 'D. mA + mB + mC = mD'], correctIndex: 0 },
             { type: 'quiz', question: '🧪 [KHTN - Hóa 8] Dấu hiệu nào sau đây cho thấy có phản ứng hóa học xảy ra?', options: ['A. Có chất khí thoát ra (sủi bọt)', 'B. Xuất hiện chất kết tủa', 'C. Có sự đổi màu hoặc tỏa nhiệt', 'D. Cả A, B và C đều đúng'], correctIndex: 3 },
 
-            // --- ĐỊA LÝ 8 (5 câu) ---
+            // --- ĐỊA LÝ 8 ---
             { type: 'quiz', question: '🗺️ [Địa Lý 8] Nước Việt Nam chúng ta nằm ở rìa phía Đông của bán đảo nào?', options: ['A. Bán đảo Mã Lai', 'B. Bán đảo Đông Dương', 'C. Bán đảo Triều Tiên', 'D. Bán đảo Ả Rập'], correctIndex: 1 },
             { type: 'quiz', question: '🗺️ [Địa Lý 8] Diện tích phần đất liền của Việt Nam rộng khoảng bao nhiêu km²?', options: ['A. 100.000 km²', 'B. 200.000 km²', 'C. 331.344 km²', 'D. 500.000 km²'], correctIndex: 2 },
             { type: 'quiz', question: '🗺️ [Địa Lý 8] Trên phần đất liền của nước ta, địa hình đồi núi chiếm khoảng mấy phần diện tích?', options: ['A. 1/4 diện tích', 'B. 1/2 diện tích', 'C. 3/4 diện tích', 'D. Toàn bộ diện tích'], correctIndex: 2 },
             { type: 'quiz', question: '🗺️ [Địa Lý 8] Địa hình phần đất liền Việt Nam có hướng thấp dần theo hướng nào?', options: ['A. Từ Đông Bắc xuống Tây Nam', 'B. Từ Tây Bắc xuống Đông Nam', 'C. Từ Nam lên Bắc', 'D. Từ Đông sang Tây'], correctIndex: 1 },
             { type: 'quiz', question: '🗺️ [Địa Lý 8] Nhìn chung, tài nguyên khoáng sản của Việt Nam có đặc điểm nổi bật là:', options: ['A. Rất nghèo nàn, ít chủng loại', 'B. Phong phú và đa dạng', 'C. Chỉ có duy nhất than đá', 'D. Không có trữ lượng dầu mỏ'], correctIndex: 1 },
 
-            // --- LỊCH SỬ 8 (5 câu) ---
+            // --- LỊCH SỬ 8 ---
             { type: 'quiz', question: '📜 [Lịch Sử 8] Cuộc Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mỹ đã dẫn đến sự ra đời của quốc gia nào?', options: ['A. Nước Pháp', 'B. Nước Anh', 'C. Hợp chúng quốc Hoa Kỳ (Nước Mỹ)', 'D. Nước Đức'], correctIndex: 2 },
             { type: 'quiz', question: '📜 [Lịch Sử 8] Cuộc Cách mạng công nghiệp bắt đầu từ thế kỷ XVIII nổi tiếng với phát minh vĩ đại nào?', options: ['A. Máy hơi nước (James Watt)', 'B. Điện thoại', 'C. Máy tính bỏ túi', 'D. Xe ô tô điện'], correctIndex: 0 },
             { type: 'quiz', question: '📜 [Lịch Sử 8] Từ thế kỷ XVI đến giữa thế kỷ XIX, các nước Đông Nam Á đối mặt nguy cơ bị xâm lược bởi ai?', options: ['A. Thực dân phương Tây', 'B. Các nước châu Phi', 'C. Châu Mỹ Latinh', 'D. Các đế quốc ở Bắc Cực'], correctIndex: 0 },
             { type: 'quiz', question: '📜 [Lịch Sử 8] Cuộc xung đột Nam - Bắc triều trong lịch sử Việt Nam thế kỷ XVI là chiến tranh giữa hai thế lực nào?', options: ['A. Nhà Lê và nhà Mạc', 'B. Trịnh và Nguyễn', 'C. Tây Sơn và Nguyễn Ánh', 'D. Nhà Đinh và nhà Lê'], correctIndex: 0 },
             { type: 'quiz', question: '📜 [Lịch Sử 8] Trong thế kỷ XVII, cuộc xung đột nào chia cắt đất nước thành Đàng Trong và Đàng Ngoài?', options: ['A. Xung đột Trịnh - Nguyễn', 'B. Xung đột Nhà Đinh - Nhà Lý', 'C. Xung đột Nhà Ngô - Nhà Trần', 'D. Xung đột Vua Hùng - Thục Phán'], correctIndex: 0 },
 
-            // --- AN TOÀN GIAO THÔNG (5 câu) ---
+            // --- AN TOÀN GIAO THÔNG ---
             { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Học sinh lớp 8 (13-14 tuổi) được phép điều khiển loại phương tiện nào?', options: ['A. Xe đạp, xe đạp điện', 'B. Xe máy điện, xe gắn máy dưới 50 cm³', 'C. Xe tay ga 125 cm³', 'D. Xe mô tô phân khối lớn'], correctIndex: 0 },
             { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Khi ngồi trên xe đạp điện/xe máy điện, đội mũ bảo hiểm như thế nào là đúng?', options: ['A. Đội cho có, không cài quai', 'B. Đội mũ đạt chuẩn và cài quai đúng quy cách', 'C. Đội mũ lưỡi trai bên trong', 'D. Chỉ đội khi thấy cảnh sát giao thông'], correctIndex: 1 },
             { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Hành vi nào của học sinh khi đi xe đạp/xe đạp điện là vi phạm luật nguy hiểm?', options: ['A. Đi đúng phần đường', 'B. Dàn hàng ngang từ 3 xe trở lên, đùa giỡn', 'C. Bật xi-nhan khi chuyển hướng', 'D. Dừng sát hè phố nghe điện thoại'], correctIndex: 1 },
             { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Khi đèn giao thông chuyển sang màu vàng, người điều khiển phải làm gì?', options: ['A. Tăng tốc phóng nhanh qua ngã tư', 'B. Phải dừng lại trước vạch dừng', 'C. Bóp còi liên tục', 'D. Tắt máy đứng giữa ngã tư'], correctIndex: 1 },
             { type: 'quiz', question: '🛵 [An Toàn Giao Thông] Học sinh vừa đi xe đạp/xe đạp điện vừa đeo tai nghe nghe nhạc sẽ bị xử lý thế nào?', options: ['A. Là vi phạm luật và sẽ bị xử phạt', 'B. Được khuyến khích', 'C. Không làm sao cả', 'D. Chỉ bị nhắc nhở nhẹ'], correctIndex: 0 },
 
-            // --- GIÁO DỤC CÔNG DÂN 8 (5 câu) ---
+            // --- GIÁO DỤC CÔNG DÂN 8 ---
             { type: 'quiz', question: '🕊️ [GDCD 8] Những giá trị tốt đẹp về tư tưởng, đạo lý được truyền từ thế hệ này sang thế hệ khác gọi là gì?', options: ['A. Lối sống hiện đại', 'B. Truyền thống dân tộc', 'C. Sở thích cá nhân', 'D. Văn hóa ngoại lai'], correctIndex: 1 },
             { type: 'quiz', question: '🕊️ [GDCD 8] Hành vi nào sau đây thể hiện sự thiếu tôn trọng truyền thống tốt đẹp của dân tộc?', options: ['A. Tự hào di tích lịch sử', 'B. Chăm chỉ học tập', 'C. Chê bai trang phục truyền thống', 'D. Giữ gìn nghề truyền thống'], correctIndex: 2 },
             { type: 'quiz', question: '🕊️ [GDCD 8] Tôn trọng và học hỏi các dân tộc khác trên thế giới có ý nghĩa như thế nào?', options: ['A. Giúp phát triển toàn diện và hòa nhập', 'B. Làm đánh mất bản sắc dân tộc', 'C. Không mang lại giá trị gì', 'D. Chỉ gây lãng phí thời gian'], correctIndex: 0 },
@@ -494,17 +509,111 @@
             { type: 'lucky', text: '💎 [KHO BÁU BÍ ẨN] May mắn tuyệt đối! Bạn được miễn thử thách và nhận ngay lời chúc tốt đẹp nhất từ cả lớp!' }
         ];
 
-        // Trộn rải rác 45 câu hỏi + 5 Rương may mắn để đủ 50 rương
+        // Shuffle questions for 50 chests
         let treasureQuestions = [];
-        
         function prepare50Chests() {
             let combined = [...raw45Questions, ...luckyChests];
-            // Fisher-Yates Shuffle
             for (let i = combined.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [combined[i], combined[j]] = [combined[j], combined[i]];
             }
             treasureQuestions = combined;
+        }
+
+        // Web Audio Synthesizer
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'tick') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(150, now + 0.04);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.04);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.04);
+                } else if (type === 'win') {
+                    const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99];
+                    notes.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        gain.gain.setValueAtTime(0.3, now + idx * 0.08);
+                        gain.gain.linearRampToValueAtTime(0.01, now + idx * 0.08 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + idx * 0.08);
+                        osc.stop(now + idx * 0.08 + 0.25);
+                    });
+                } else if (type === 'correct') {
+                    const notes = [523.25, 659.25, 783.99, 1046.50];
+                    notes.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+                        gain.gain.setValueAtTime(0.35, now + idx * 0.06);
+                        gain.gain.linearRampToValueAtTime(0.01, now + idx * 0.06 + 0.2);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + idx * 0.06);
+                        osc.stop(now + idx * 0.06 + 0.2);
+                    });
+                } else if (type === 'wrong') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.linearRampToValueAtTime(110, now + 0.3);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'open') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(250, now);
+                    osc.frequency.exponentialRampToValueAtTime(950, now + 0.35);
+                    gain.gain.setValueAtTime(0.35, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                }
+            } catch (e) {
+                console.log("Audio play error", e);
+            }
+        }
+
+        // Trigger Screen Shake
+        function triggerScreenShake() {
+            const body = document.getElementById('mainBody');
+            body.classList.add('shake-screen');
+            setTimeout(() => body.classList.remove('shake-screen'), 500);
         }
 
         // State variables
@@ -514,73 +623,13 @@
         let currentAngle = 0;
         let currentActiveQuestion = null;
 
-        // Audio Context Setup
-        let audioCtx = null;
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        function playSound(type) {
-            try {
-                initAudio();
-                if (!audioCtx) return;
-
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                if (type === 'tick') {
-                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
-                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.05);
-                } else if (type === 'win' || type === 'correct') {
-                    const now = audioCtx.currentTime;
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.setValueAtTime(400, now + 0.1);
-                    osc.frequency.setValueAtTime(523, now + 0.2);
-                    osc.frequency.setValueAtTime(659, now + 0.3);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
-                    osc.start(now);
-                    osc.stop(now + 0.6);
-                } else if (type === 'wrong') {
-                    const now = audioCtx.currentTime;
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(180, now);
-                    osc.frequency.linearRampToValueAtTime(110, now + 0.25);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
-                    osc.start(now);
-                    osc.stop(now + 0.25);
-                } else if (type === 'open') {
-                    const now = audioCtx.currentTime;
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(200, now);
-                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
-                    osc.start(now);
-                    osc.stop(now + 0.3);
-                }
-            } catch (e) {
-                console.log("Audio play error", e);
-            }
-        }
-
-        // Palette Colors for Ocean Theme Slices
+        // Palette Colors for Wheel Slices
         const oceanColors = [
             '#0284c7', '#0d9488', '#0369a1', '#16a34a', '#0891b2', 
             '#2563eb', '#059669', '#0284c7', '#7c3aed', '#0d9488'
         ];
 
-        // Canvas & Wheel setup variables
+        // Canvas setup
         let canvas = null;
         let ctx = null;
 
@@ -653,7 +702,7 @@
             ctx.strokeStyle = '#38bdf8';
             ctx.stroke();
 
-            // Center Icon / Text
+            // Center Icon
             ctx.fillStyle = '#fbbf24';
             ctx.font = "22px 'Font Awesome 6 Free'";
             ctx.textAlign = "center";
@@ -663,7 +712,7 @@
             ctx.restore();
         }
 
-        // Spin Logic
+        // Spin Wheel
         function spinWheel() {
             if (isSpinning || students.length === 0) return;
 
@@ -676,13 +725,13 @@
             const winnerIndex = Math.floor(Math.random() * students.length);
             const sliceAngle = (2 * Math.PI) / students.length;
             
-            const extraRounds = 5 + Math.floor(Math.random() * 3);
+            const extraRounds = 6 + Math.floor(Math.random() * 3);
             const targetAngleOffset = (students.length - winnerIndex - 0.5) * sliceAngle;
             const totalRotation = extraRounds * 2 * Math.PI + targetAngleOffset - (currentAngle % (2 * Math.PI));
 
             const startAngle = currentAngle;
             const startTime = performance.now();
-            const duration = 5000;
+            const duration = 5500;
 
             let lastTickSlice = -1;
 
@@ -690,7 +739,7 @@
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const easeOut = 1 - Math.pow(1 - progress, 4);
                 currentAngle = startAngle + totalRotation * easeOut;
 
                 const currentSliceIndex = Math.floor(((2 * Math.PI - (currentAngle % (2 * Math.PI))) % (2 * Math.PI)) / sliceAngle);
@@ -711,10 +760,12 @@
                     currentSelectedWinner = students[winnerIndex];
                     displayWinner(currentSelectedWinner);
                     playSound('win');
+                    triggerScreenShake();
                     
+                    // Mega Confetti Burst
                     confetti({
-                        particleCount: 80,
-                        spread: 70,
+                        particleCount: 120,
+                        spread: 90,
                         origin: { y: 0.6 }
                     });
                 }
@@ -821,7 +872,7 @@
             });
         }
 
-        // Handle interactive option selection in quiz
+        // Handle option selection
         function selectQuizAnswer(selectedIndex, btnElement) {
             if (!currentActiveQuestion || currentActiveQuestion.type !== 'quiz') return;
 
@@ -833,7 +884,7 @@
                 btnElement.className = "quiz-opt-btn p-3 rounded-xl bg-emerald-600 border-2 border-emerald-300 text-white font-bold text-left text-sm flex items-center justify-between shadow-lg glow-cyan";
                 btnElement.querySelector('.opt-icon').className = "opt-icon fa-solid fa-circle-check text-emerald-200 text-lg";
 
-                // Disable all option buttons after finding correct answer
+                // Disable all option buttons
                 const allButtons = document.querySelectorAll('.quiz-opt-btn');
                 allButtons.forEach(b => {
                     b.disabled = true;
@@ -883,16 +934,16 @@
                 chestsTab.classList.add('hidden');
                 chestsTab.classList.remove('flex');
 
-                btnWheel.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30 border border-cyan-300/40";
-                btnChests.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30";
+                btnWheel.className = "px-6 py-2.5 rounded-xl font-black transition flex items-center gap-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/40 border border-cyan-200 text-white";
+                btnChests.className = "px-6 py-2.5 rounded-xl font-black transition flex items-center gap-2.5 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30 text-slate-200";
             } else {
                 chestsTab.classList.remove('hidden');
                 chestsTab.classList.add('flex');
                 wheelTab.classList.add('hidden');
                 wheelTab.classList.remove('flex');
 
-                btnChests.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30 border border-cyan-300/40";
-                btnWheel.className = "px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30";
+                btnChests.className = "px-6 py-2.5 rounded-xl font-black transition flex items-center gap-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/40 border border-cyan-200 text-white";
+                btnWheel.className = "px-6 py-2.5 rounded-xl font-black transition flex items-center gap-2.5 bg-slate-800/80 hover:bg-slate-700 border border-cyan-500/30 text-slate-200";
             }
         }
 
